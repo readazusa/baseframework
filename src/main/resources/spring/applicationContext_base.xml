@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:prop/mysql.properties</value>
+				<value>classpath:prop/pro.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="maxUploadSize" value="1048576000" />
+		<property name="maxInMemorySize" value="40960" />
+	</bean>
+
+    <bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 线程池中开启的最小数量-->
+		<property name="corePoolSize" value="10"></property>
+		<!-- 线程池中最大数量-->
+		<property name="maxPoolSize" value="50"></property>
+		<!-- 线程池缓冲的数量 ，解释： 如果此时线程池中的数量大于corePoolSize，缓冲队列workQueue满，并且线程池中的数量小于maximumPoolSize，建新的线程来处理被添加的任-->
+        <property name="queueCapacity" value="5"></property>
+		<!-- 线程空闲的是时间 单位秒-->
+		 <property name="keepAliveSeconds" value="5"></property>
+	</bean>
+
+
+
+
+
+</beans>

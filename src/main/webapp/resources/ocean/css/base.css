@@ -1,0 +1,28 @@
+body{
+    background-color: honeydew;
+}
+.footer-fixed{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+.base-main-content{
+    background: url("../img/index_page_img.jpg") !important;
+    background-size: 100% 100% !important;
+}
+
+.base_nav_menu{
+    margin-bottom: 0px;
+}
+
+.dropdown-menu{
+    /*min-width:100%*/
+}
+.detail{
+ display: table-cell;
+}
+.login{
+    background: url("../img/login-background.jpg") no-repeat center fixed;
+    background-size: cover;
+}

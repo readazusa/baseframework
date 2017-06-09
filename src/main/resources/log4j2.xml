@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <Console name="Console">
+            <PatternLayout pattern="%highlight{%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %C.%M  %-5level %logger{360} - %m%n}"/>
+        </Console>
+        <File name="File" fileName="/file/wireless/wireless.log">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %C.%M  %-5level %logger{360} - %m%n</pattern>
+            </PatternLayout>
+        </File>
+        <File name="FileTest" fileName="/file/wireless/test/wireless.log">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %m%n</pattern>
+            </PatternLayout>
+        </File>
+
+        <RollingFile name="RollingFile" fileName="/file/wireless/app1.log"
+                     filePattern="/file/wireless/app1-%d{yyyyMMddHHmmssSS}.log.gz"
+                     ignoreExceptions="true">
+            <PatternLayout>
+                <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+            </PatternLayout>
+            <SizeBasedTriggeringPolicy size="10K"/>
+        </RollingFile>
+
+        <SMTP name="Mail" subject="Error Log" to="921700775@qq.com" from="sunmch@163.com"
+              smtpHost="smtp.163.com" smtpPort="25" bufferSize="5" smtpUsername="sunmch" smtpPassword="smc8781546">
+        </SMTP>
+
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"></AppenderRef>
+            <AppenderRef ref="Mail"/>
+        </Root>
+        <logger name="net" level="DEBUG" additivity="false">
+            <AppenderRef ref="Mail"/>
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"></AppenderRef>
+        </logger>
+    </Loggers>
+</Configuration>
