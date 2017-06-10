@@ -13,7 +13,7 @@
 <@config.fontCSS></@config.fontCSS>
 <@config.bootTableCSS></@config.bootTableCSS>
 <@config.baseCSS></@config.baseCSS>
-
+<@config.jsTreeCSS></@config.jsTreeCSS>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -25,18 +25,25 @@
     <@template.mainleft></@template.mainleft>
     <@template.mainTop></@template.mainTop>
         <div class="right_col" role="main" style="overflow-y: auto">
-            <div class="row">
-                <table id="table"></table>
-            </div>
-            <div id="toolbar">
-                <a href="javascript:void(0);" class="btn btn-primary btn-xs"><i
-                        class="icon iconfont"></i>新增</a>
-                <a href="javascript:remove();" class="btn btn-danger btn-xs"><i
-                        class="icon iconfont"></i>删除</a>
-            </div>
-            <table id="taskList_table" class="table-striped table-hover" data-mobile-responsive="true"></table>
+            <div class="base-dept">
+                <div class="base-dept-left">
+                    <div id="tree">
 
-            <input type="button" value="提交数据" onclick="onChoiceAll();">
+                    </div>
+                </div>
+                <div class="base-dept-right">
+                    <div class="row">
+                        <table id="table"></table>
+                    </div>
+                    <div id="toolbar">
+                        <a href="javascript:void(0);" class="btn btn-primary btn-xs"><i
+                                class="icon iconfont"></i>新增</a>
+                        <a href="javascript:remove();" class="btn btn-danger btn-xs"><i
+                                class="icon iconfont"></i>删除</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     <@template.mainFooter></@template.mainFooter>
     </div>
@@ -47,6 +54,7 @@
 <@config.themeJS></@config.themeJS>
 <@config.bootTableJS></@config.bootTableJS>
 <@config.bootTableJS_ZH_CN></@config.bootTableJS_ZH_CN>
+<@config.jsTree></@config.jsTree>
 <script type="application/javascript">
     var $table = $("#table");
     $(function () {
@@ -98,13 +106,35 @@
             onCheck: function (row) {
                 console.info("row: " + JSON.stringify(row));
             },
-            onLoadSuccess:function(data){
-                console.log("data: "+ JSON.stringify(data));
+            onLoadSuccess: function (data) {
+                console.log("data: " + JSON.stringify(data));
             },
             detailFormatter: function () {
                 return "123123123";
             }
         });
+
+        $("#tree").jstree({
+            "animation" : 0,
+            "check_callback" : true,
+            "themes" : { "stripes" : true },
+            'core' : {
+                'data' : {
+                    "url":function(node){
+                         console.info("异步的数据: "+node.id);
+                        return "${base}/sys/dept/depttree.json";
+                    },
+                    "data":function(node){
+                        console.info("id: "+node.id);
+                        return { 'id': node.id };
+                    }
+                }
+            }
+        });
+
+
+
+
     });
 
     function remove() {

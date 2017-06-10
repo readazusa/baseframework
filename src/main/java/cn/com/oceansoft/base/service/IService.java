@@ -3,6 +3,8 @@ package cn.com.oceansoft.base.service;
 
 
 
+import cn.com.oceansoft.base.entity.BasePageReqEntity;
+
 import java.util.List;
 
 /**
@@ -10,11 +12,12 @@ import java.util.List;
  * 基础service
  */
 public interface IService<T> {
+
     public T queryObjectById(String id);
 
     public T queryObjectById(int id);
 
-    public List<T> queryList();
+    public List<T> queryAll();
 
     public void save(T obj);   //保存信息
 
@@ -26,8 +29,8 @@ public interface IService<T> {
 
     public int getTotalCount(T t);
 
+    public List<T> queryPage(BasePageReqEntity<T> param);
 
-    public List<T> queryListPO(int pageIndex, int pageSize, T t);
 
 
 }

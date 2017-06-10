@@ -26,3 +26,18 @@ body{
     background: url("../img/login-background.jpg") no-repeat center fixed;
     background-size: cover;
 }
+
+.base-dept{
+    display: flex;
+    flex-flow: nowrap;
+    flex-direction: row;
+}
+
+.base-dept-left{
+    width: 20%;
+}
+
+.base-dept-right{
+    width: 75%;
+    margin-left: 4%;
+}

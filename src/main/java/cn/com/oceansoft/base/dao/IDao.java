@@ -2,6 +2,8 @@ package cn.com.oceansoft.base.dao;
 
 
 
+import cn.com.oceansoft.base.entity.BasePageReqEntity;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,12 @@ import java.util.List;
  * 基础dao
  */
 public interface IDao<T> {
+
+    public T queryObjectById(String id);
+
+    public T queryObjectById(int id);
+
+    public List<T> queryAll();
 
     public void save(T obj);   //保存信息
 
@@ -18,14 +26,9 @@ public interface IDao<T> {
 
     public void update(T t);
 
-    public T  queryObjectById(String id);
+    public int getTotalCount(T t);
 
-    public T queryObjectById(int id);
-
-    public List<T> queryList();
-
-    public int queryTotalCount(T t);    //获取匹配条件的个数
-
+    public List<T> queryPage(BasePageReqEntity<T> param);
 
 
 }
