@@ -9,7 +9,10 @@ import java.util.Date;
  */
 public class BaseInfo {
 
+
     private int id;  //数据库自增的id
+
+    private String name;
 
     private long uid;
 
@@ -20,6 +23,23 @@ public class BaseInfo {
     private Date sysCreateTime;
 
     private Date sysUpdateTime;
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public long getUid() {
         return uid;

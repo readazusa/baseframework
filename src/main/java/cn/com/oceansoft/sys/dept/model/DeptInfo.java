@@ -7,7 +7,7 @@ import cn.com.oceansoft.base.entity.BaseInfo;
  */
 public class DeptInfo extends BaseInfo {
 
-    private String name;
+
 
     private String code;
 
@@ -23,20 +23,13 @@ public class DeptInfo extends BaseInfo {
 
     private  String leaderMobile;
 
-    private String leaderPosition;
+    private String leaderPosition;  //领导职位
 
     private int flag;  //是否禁用 0:正常  1:禁用
 
     private int del;  //0 :已经删除
 
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    private String parentCode;
 
     public String getCode() {
         return code;
@@ -116,5 +109,13 @@ public class DeptInfo extends BaseInfo {
 
     public void setDel(int del) {
         this.del = del;
+    }
+
+    public String getParentCode() {
+        return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+        this.parentCode = parentCode;
     }
 }
