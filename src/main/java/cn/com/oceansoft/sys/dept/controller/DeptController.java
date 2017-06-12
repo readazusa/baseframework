@@ -1,6 +1,5 @@
 package cn.com.oceansoft.sys.dept.controller;
 
-import cn.com.oceansoft.base.util.UuidUtils;
 import cn.com.oceansoft.sys.dept.model.DeptInfo;
 import cn.com.oceansoft.sys.dept.service.IDeptService;
 import org.apache.logging.log4j.LogManager;
