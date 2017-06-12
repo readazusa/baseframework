@@ -4,8 +4,33 @@
 
 <mapper namespace="DeptInfo">
 
-    <select id="queryDeptInfosByParentCode" parameterType="java.lang.String" resultType="DeptInfo">
-
+    <select id="save" parameterType="DeptInfo">
+        insert into t_sys_dept(uid,name,code,level,phone,address,housenumber,leader,leadermobile,leaderposition,flag,del,parentcode,
+        createtime,updatetime,syscreatetime)
+        values (#{uid},#{name},#{code},#{level},#{phone},#{address},#{houseNumber},#{leader},#{leaderMobile},#{leaderPosition},#{flag},#{del},#{parentCode},
+        #{createTime},#{updateTime},now())
     </select>
+
+    <delete id="deleleById" parameterType="java.lang.Integer">
+        delete from t_sys_dept where id = #{id}
+    </delete>
+
+    <select id="queryObjectById" parameterType="java.lang.Integer" resultType="DeptInfo">
+        select * from t_sys_dept where id = #{id}
+    </select>
+
+    <update id="update" parameterType="DeptInfo">
+        update t_sys_dept set name=#{name},phone=#{phone},housenumber=#{houseNumber},leader=#{leader},leadermobile=#{leaderMobile},leaderposition=#{leaderPosition},flag=#{flag},
+        del=#{del},updatetime= #{updateTime} where id = #{id}
+    </update>
+
+    <select id="queryDeptInfosByParentCode" parameterType="java.lang.String" resultType="DeptInfo">
+        select * from t_sys_dept where parentcode = #{parentCode}
+    </select>
+
+    <select id="queryDeptCountByParentCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from t_sys_dept where parentcode = #{parentCode}
+    </select>
+
 
 </mapper>

@@ -12,5 +12,7 @@ public interface IDeptService extends IService<DeptInfo> {
 
     public List<DeptInfo> queryDeptInfosByParentCode(String parentCode);
 
+    public Object loadDeptByParentCode(String parentCode);
+
 
 }

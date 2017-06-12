@@ -62,6 +62,7 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
         return 0;
     }
 
+
     @Override
     public List<DeptInfo> queryPage(BasePageReqEntity<DeptInfo> param) {
         return null;
@@ -69,6 +70,11 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
 
     @Override
     public List<DeptInfo> queryDeptInfosByParentCode(String parentCode) {
-        return null;
+        return this.getSqlSession().selectList("DeptInfo.queryDeptInfosByParentCode",parentCode);
+    }
+
+    @Override
+    public int queryDeptCountByParentCode(String parentCode) {
+        return this.getSqlSession().selectOne("DeptInfo.queryDeptCountByParentCode",parentCode);
     }
 }

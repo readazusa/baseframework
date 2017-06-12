@@ -10,5 +10,14 @@
         <setting name="aggressiveLazyLoading" value="false"/>
     </settings>
 
+
+    <typeAliases>
+        <typeAlias type="cn.com.oceansoft.sys.dept.model.DeptInfo" alias="DeptInfo"></typeAlias>
+    </typeAliases>
+
+    <mappers>
+        <mapper resource="cn/com/oceansoft/sys/dept/model/mybatis/DeptInfo.xml"></mapper>
+    </mappers>
+
 </configuration>
  

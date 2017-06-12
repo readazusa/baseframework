@@ -10,4 +10,7 @@ import java.util.List;
  */
 public interface IDeptDao extends IDao<DeptInfo> {
     public List<DeptInfo> queryDeptInfosByParentCode(String parentCode);
+
+
+    public int queryDeptCountByParentCode(String parentCode);
 }

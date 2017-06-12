@@ -28,7 +28,6 @@
             <div class="base-dept">
                 <div class="base-dept-left">
                     <div id="tree">
-
                     </div>
                 </div>
                 <div class="base-dept-right">
@@ -43,7 +42,7 @@
                     </div>
                 </div>
             </div>
-
+            <input type="hidden" id="parentCode" >
         </div>
     <@template.mainFooter></@template.mainFooter>
     </div>
@@ -58,12 +57,13 @@
 <script type="application/javascript">
     var $table = $("#table");
     $(function () {
+
         table = $('#table').bootstrapTable({
             method: "post",
             striped: true,
             pagination: true,
             pageSize: 5,
-            pageList: [1, 2, 3, 4, 5],
+            pageList: [5, 20, 50, 100],
             url: "${base}/sys/user/querypage.json",
             sidePagination: "server",
             search: true,
@@ -74,9 +74,8 @@
             toolbar: '#toolbar',
             clickToSelect: false,
             detailView: true,
-            idField: "id",
+//            idField: "id",
             showColumns: true,
-//            cardView:true,
             columns: [
                 {
                     field: 'id',
@@ -122,7 +121,13 @@
                 'data' : {
                     "url":function(node){
                          console.info("异步的数据: "+node.id);
-                        return "${base}/sys/dept/depttree.json";
+                        var parentCode;
+                        if("#" == node.id){
+                            parentCode="root";
+                        }else{
+                            parentCode= node.id
+                        }
+                        return "${base}/sys/dept/loaddeptbyparent.json?parentcode="+parentCode;
                     },
                     "data":function(node){
                         console.info("id: "+node.id);
@@ -132,10 +137,16 @@
             }
         });
 
-
-
-
+        $('#tree').bind('activate_node.jstree', function (obj,e) {
+            var node = e.node;
+            var id = node.id;
+        });
     });
+
+
+    function viewChildrenDept(parentCode){
+
+    }
 
     function remove() {
         alert("执行删除");

@@ -1,12 +1,16 @@
 package cn.com.oceansoft.sys.dept.controller;
 
 import cn.com.oceansoft.base.util.UuidUtils;
+import cn.com.oceansoft.sys.dept.model.DeptInfo;
+import cn.com.oceansoft.sys.dept.service.IDeptService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -22,10 +26,20 @@ public class DeptController {
 
     private static  final Logger log = LogManager.getLogger(DeptController.class);
 
+    @Resource
+    private IDeptService deptService;
 
     @RequestMapping("index")
     public String index(){
         return "sys/dept/index";
+    }
+
+
+    @RequestMapping("loaddeptbyparent")
+    @ResponseBody
+    public Object loadDeptByParent(@RequestParam(name = "parentcode") String parentCode){
+        log.debug("parentcode： {}",parentCode);
+        return deptService.loadDeptByParentCode(parentCode);
     }
 
 
@@ -36,24 +50,36 @@ public class DeptController {
 
         Map<String,Object> map = new HashMap<>();
 
-        List<Map<String,Object>> list = new ArrayList<>();
-
-        for(int i=0;i<5;i++){
-            Map<String,Object> map1 = new HashMap<>();
-            map1.put("id",UuidUtils.getUpperUuid());
-            map1.put("text","jstree"+i);
-            map1.put("children",true);
-            list.add(map1);
-        }
-
-        map.put("id",UuidUtils.getUpperUuid());
-        map.put("text","新区城管局");
-        map.put("children",list);
-
-
         return map;
     }
 
+    @RequestMapping("newpage")
+    public String newPage(String parentCode){
+        return null;
+    }
+
+
+    public Object doAdd(DeptInfo deptInfo){
+        return null;
+    }
+
+
+    public String editPage(int id){
+        return null;
+    }
+
+    public Object doUpdate(DeptInfo deptInfo){
+        return null;
+    }
+
+
+    public String viewPage(int id){
+        return null;
+    }
+
+    public Object remove(int id){
+        return null;
+    }
 
 
 

@@ -40,7 +40,7 @@ public class UserController {
 //        log.debug("name: {}",request.getParameter("name"));
         log.debug("baseReqEntity的基本数据: {}",baseReqEntity);
         List<Map> list = new ArrayList<>();
-        for(int i=0;i<5;i++){
+        for(int i=0;i<20;i++){
             Map<String,String> map = new HashMap<>();
             map.put("id", UuidUtils.getUpperUuid());
             map.put("name","你好");
@@ -49,7 +49,7 @@ public class UserController {
         }
         BasePageResultEntity basePageResultEntity = new BasePageResultEntity<Map>();
         basePageResultEntity.setRows(list);
-        basePageResultEntity.setTotal(10);
+        basePageResultEntity.setTotal(20);
         basePageResultEntity.setOffset(baseReqEntity.getOffset());
         return basePageResultEntity;
     }
