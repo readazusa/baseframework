@@ -1,5 +1,6 @@
 <#import "../../template/template.ftl" as template>
 <#import "../../config/config.ftl" as config>
+<#import "../../config/baseExecJS.ftl" as baseExecJS>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +13,10 @@
 <@config.themeCSS></@config.themeCSS>
 <@config.fontCSS></@config.fontCSS>
 <@config.bootTableCSS></@config.bootTableCSS>
-<@config.baseCSS></@config.baseCSS>
 <@config.jsTreeCSS></@config.jsTreeCSS>
+<@config.layerCSS></@config.layerCSS>
+<@config.baseCSS></@config.baseCSS>
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -54,6 +57,7 @@
 <@config.bootTableJS></@config.bootTableJS>
 <@config.bootTableJS_ZH_CN></@config.bootTableJS_ZH_CN>
 <@config.jsTree></@config.jsTree>
+<@config.layerJS></@config.layerJS>
 <script type="application/javascript">
     var $table = $("#table");
     $(function () {
@@ -61,10 +65,10 @@
         table = $('#table').bootstrapTable({
             method: "post",
             striped: true,
-            pagination: true,
-            pageSize: 5,
-            pageList: [5, 20, 50, 100],
-            url: "${base}/sys/user/querypage.json",
+//            pagination: true,
+//            pageSize: 5,
+//            pageList: [5, 20, 50, 100],
+            url: "${base}/sys/dept/loaddeptbyparentcode.json",
             sidePagination: "server",
             search: true,
             showColumns: true,
@@ -78,18 +82,18 @@
             showColumns: true,
             columns: [
                 {
-                    field: 'id',
-                    title: 'Item-ID00'
+                    field: 'name',
+                    title: '部门名称'
                 },
                 {
-                    field: 'id',
-                    title: 'Item-ID'
+                    field: 'phone',
+                    title: '部门电话'
                 }, {
-                    field: 'name',
-                    title: 'Item-Name'
+                    field: 'leader',
+                    title: '部门领导'
                 }, {
-                    field: 'price',
-                    title: 'Item-Price',
+                    field: 'leaderMobile',
+                    title: '领导电话',
                 },
                 {
                     field: 'price',
@@ -110,6 +114,11 @@
             },
             detailFormatter: function () {
                 return "123123123";
+            },
+            queryParams:function(param){
+                console.info("请求的数据: "+JSON.stringify(param));
+                return {"parentcode":"0000"};
+
             }
         });
 
@@ -127,7 +136,7 @@
                         }else{
                             parentCode= node.id
                         }
-                        return "${base}/sys/dept/loaddeptbyparent.json?parentcode="+parentCode;
+                        return "${base}/sys/dept/loaddepttreebyparent.json?parentcode="+parentCode;
                     },
                     "data":function(node){
                         console.info("id: "+node.id);
@@ -143,6 +152,10 @@
         });
     });
 
+
+    function  refresh(){
+
+    }
 
     function viewChildrenDept(parentCode){
 
@@ -161,6 +174,10 @@
         console.info(JSON.stringify(sel));
     }
 </script>
+
+
+<@baseExecJS.addJS url="${base}/sys/dept/newpage.htm"></@baseExecJS.addJS>
+
 
 
 </body>

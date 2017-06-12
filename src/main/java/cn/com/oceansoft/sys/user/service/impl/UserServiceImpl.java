@@ -5,7 +5,6 @@ import cn.com.oceansoft.sys.user.dao.IUserDao;
 import cn.com.oceansoft.sys.user.model.UserInfo;
 import cn.com.oceansoft.sys.user.service.IUserService;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.List;
 

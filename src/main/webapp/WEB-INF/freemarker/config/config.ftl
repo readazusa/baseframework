@@ -44,16 +44,23 @@
 </#macro>
 
 <#macro bootProgressbarJS>
-<script src="${base}/resources/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js" type="application/javascript"></script>
+    <script src="${base}/resources/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js" type="application/javascript"></script>
 </#macro>
-
 
 
 <#macro jsTree>
     <script src="${base}/resources/plugins/jstree/dist/jstree.min.js" type="application/javascript"></script>
 </#macro>
 
-
 <#macro jsTreeCSS>
     <link href="${base}/resources/plugins/jstree/dist/themes/default/style.min.css" type="text/css" rel="stylesheet">
+</#macro>
+
+<#macro layerJS>
+    <script src="${base}/resources/plugins/layui/layui.js" type="application/javascript"></script>
+</#macro>
+
+
+<#macro layerCSS>
+    <link href="${base}/resources/plugins/layui/css/layui.css" rel="stylesheet" type="text/css">
 </#macro>

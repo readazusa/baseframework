@@ -73,7 +73,7 @@ public class DeptServiceImpl implements IDeptService {
 
     @Override
     public List<DeptInfo> queryDeptInfosByParentCode(String parentCode) {
-        return null;
+        return deptDao.queryDeptInfosByParentCode(parentCode);
     }
 
     @Override
