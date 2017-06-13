@@ -39,7 +39,7 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
 
     @Override
     public void save(DeptInfo obj) {
-
+            this.getSqlSession().insert("ss",obj);
     }
 
     @Override

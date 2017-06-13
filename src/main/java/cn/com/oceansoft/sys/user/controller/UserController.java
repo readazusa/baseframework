@@ -3,7 +3,6 @@ package cn.com.oceansoft.sys.user.controller;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
 import cn.com.oceansoft.base.util.UuidUtils;
-import org.apache.commons.pool2.BasePooledObjectFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
