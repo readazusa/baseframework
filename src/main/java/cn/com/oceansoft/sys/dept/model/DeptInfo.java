@@ -7,8 +7,6 @@ import cn.com.oceansoft.base.entity.BaseInfo;
  */
 public class DeptInfo extends BaseInfo {
 
-
-
     private String code;
 
     private int level;  //级别 ，部门的层级

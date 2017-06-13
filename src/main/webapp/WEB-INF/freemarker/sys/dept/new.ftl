@@ -7,73 +7,85 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>部门管理</title>
-    <@config.layerCSS></@config.layerCSS>
+
+<@config.bootCSS></@config.bootCSS>
+<@config.layerCSS></@config.layerCSS>
+    <@config.baseCSS></@config.baseCSS>
 
 </head>
 
 <body>
-<form class="layui-form"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
-    <div class="layui-form-item">
-        <label class="layui-form-label">输入框</label>
-        <div class="layui-input-block">
-            <input type="text" name="" placeholder="请输入" autocomplete="off" class="layui-input">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">下拉选择框</label>
-        <div class="layui-input-block">
-            <select name="interest" lay-filter="aihao">
-                <option value="0">写作</option>
-                <option value="1">阅读</option>
-            </select>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">复选框</label>
-        <div class="layui-input-block">
-            <input type="checkbox" name="like[write]" title="写作">
-            <input type="checkbox" name="like[read]" title="阅读">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">开关关</label>
-        <div class="layui-input-block">
-            <input type="checkbox" lay-skin="switch">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">开关开</label>
-        <div class="layui-input-block">
-            <input type="checkbox" checked lay-skin="switch">
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">单选框</label>
-        <div class="layui-input-block">
-            <input type="radio" name="sex" value="0" title="男">
-            <input type="radio" name="sex" value="1" title="女" checked>
-        </div>
-    </div>
-    <div class="layui-form-item layui-form-text">
-        <label class="layui-form-label">请填写描述</label>
-        <div class="layui-input-block">
-            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="*">立即提交</button>
-            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+
+<div class="container  mag-top">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">部门名称</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入部门名称">
+                    </div>
+
+                    <label for="inputEmail3" class="col-sm-2 control-label">部门电话</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入部门电话">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">部门领导</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入部门领导">
+                    </div>
+
+                    <label for="inputEmail3" class="col-sm-2 control-label">领导电话</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入领导电话">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">领导职位</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入领导职位">
+                    </div>
+
+                    <label for="inputEmail3" class="col-sm-2 control-label">是否禁用</label>
+                    <div class="col-sm-4">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入领导电话">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">部门地址</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="请输入部门地址">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
-</form>
-   <@config.jqueryJS></@config.jqueryJS>
- <@config.layerJS></@config.layerJS>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-2">
+          asd
+        </div>
+        <div class="col-md-4 col-md-offset-2">
+            asdads
+        </div>
+    </div>
+</div>
+
+
+
+<@config.jqueryJS></@config.jqueryJS>
+<@config.bootJS></@config.bootJS>
+<@config.layerJS></@config.layerJS>
 <script>
-    layui.use('form', function(){
+    layui.use('form', function () {
         var form = layui.form();
 
     });
 
-</body>
+    </
+    body >
