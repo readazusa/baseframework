@@ -17,8 +17,8 @@
 <body>
 
 <div class="container  mag-top">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+    <div>
+        <#--<div class="col-md-8 col-md-offset-2">-->
             <form class="form-horizontal" role="form">
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">部门名称</label>
@@ -63,17 +63,9 @@
                     </div>
                 </div>
             </form>
-        </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4 col-md-offset-2">
-          asd
-        </div>
-        <div class="col-md-4 col-md-offset-2">
-            asdads
-        </div>
-    </div>
+
 </div>
 
 
