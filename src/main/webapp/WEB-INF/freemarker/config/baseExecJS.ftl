@@ -5,8 +5,8 @@
             type: 2,
             title: "${title}",
             shadeClose: true,
-            shade: 0.8,
-            shift: 2,
+//            shade: 0.8,
+//            shift: 2,
             maxmin: true,
             area: ['${width}', '${height}'],
             content: "${url}"
@@ -14,6 +14,28 @@
     }
 </script>
 </#macro>
+
+<#macro addDeptJS url title=" " width="50%" height="70%">
+<script type="application/javascript">
+    function add(parentCode) {
+        index = layer.open({
+            type: 2,
+            title: "${title}",
+            shadeClose: true,
+//            shade: 0.8,
+//            shift: 2,
+            maxmin: true,
+            area: ['${width}', '${height}'],
+            content: "${url}?parentcode="+parentCode
+        });
+    }
+</script>
+</#macro>
+
+
+
+
+
 
 <#macro deleteJS url title="">
 <script type="application/javascript">

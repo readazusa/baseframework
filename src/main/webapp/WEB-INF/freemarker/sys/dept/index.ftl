@@ -38,14 +38,14 @@
                         <table id="table"></table>
                     </div>
                     <div id="toolbar">
-                        <a href="javascript:void(0);" class="btn btn-primary btn-xs"><i
+                        <a href="javascript:addDept();" class="btn btn-primary btn-xs"><i
                                 class="icon iconfont"></i>新增</a>
-                        <a href="javascript:remove();" class="btn btn-danger btn-xs"><i
-                                class="icon iconfont"></i>删除</a>
+                        <#--<a href="javascript:remove();" class="btn btn-danger btn-xs"><i-->
+                                <#--class="icon iconfont"></i>删除</a>-->
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="parentCode" >
+            <input type="hidden" id="parentCode" value="0000">
         </div>
     <@template.mainFooter></@template.mainFooter>
     </div>
@@ -59,15 +59,20 @@
 <@config.jsTree></@config.jsTree>
 <@config.layerJS></@config.layerJS>
 <script type="application/javascript">
+
+    layui.use(['layer', 'form'], function () {
+        layer = layui.layer
+
+    });
+
     var $table = $("#table");
+
+
     $(function () {
 
         table = $('#table').bootstrapTable({
             method: "post",
             striped: true,
-//            pagination: true,
-//            pageSize: 5,
-//            pageList: [5, 20, 50, 100],
             url: "${base}/sys/dept/loaddeptbyparentcode.json",
             sidePagination: "server",
             search: true,
@@ -78,7 +83,6 @@
             toolbar: '#toolbar',
             clickToSelect: false,
             detailView: true,
-//            idField: "id",
             showColumns: true,
             columns: [
                 {
@@ -115,49 +119,49 @@
             detailFormatter: function () {
                 return "123123123";
             },
-            queryParams:function(param){
-                console.info("请求的数据: "+JSON.stringify(param));
-                return {"parentcode":"0000"};
+            queryParams: function (param) {
+                console.info("请求的数据: " + JSON.stringify(param));
+                return {"parentcode": "0000"};
 
             }
         });
 
         $("#tree").jstree({
-            "animation" : 0,
-            "check_callback" : true,
-            "themes" : { "stripes" : true },
-            'core' : {
-                'data' : {
-                    "url":function(node){
-                         console.info("异步的数据: "+node.id);
+            "animation": 0,
+            "check_callback": true,
+            "themes": {"stripes": true},
+            'core': {
+                'data': {
+                    "url": function (node) {
+                        console.info("异步的数据: " + node.id);
                         var parentCode;
-                        if("#" == node.id){
-                            parentCode="root";
-                        }else{
-                            parentCode= node.id
+                        if ("#" == node.id) {
+                            parentCode = "root";
+                        } else {
+                            parentCode = node.id
                         }
-                        return "${base}/sys/dept/loaddepttreebyparent.json?parentcode="+parentCode;
+                        return "${base}/sys/dept/loaddepttreebyparent.json?parentcode=" + parentCode;
                     },
-                    "data":function(node){
-                        console.info("id: "+node.id);
-                        return { 'id': node.id };
+                    "data": function (node) {
+                        console.info("id: " + node.id);
+                        return {'id': node.id};
                     }
                 }
             }
         });
 
-        $('#tree').bind('activate_node.jstree', function (obj,e) {
+        $('#tree').bind('activate_node.jstree', function (obj, e) {
             var node = e.node;
             var id = node.id;
         });
     });
 
 
-    function  refresh(){
+    function refresh() {
 
     }
 
-    function viewChildrenDept(parentCode){
+    function viewChildrenDept(parentCode) {
 
     }
 
@@ -173,11 +177,15 @@
         });
         console.info(JSON.stringify(sel));
     }
+
+    function addDept(){
+        add($("#parentCode").val());
+    }
+
 </script>
 
 
-<@baseExecJS.addJS url="${base}/sys/dept/newpage.htm"></@baseExecJS.addJS>
-
-
-
+<@baseExecJS.addDeptJS url="${base}/sys/dept/newpage.htm" title="新增部门"></@baseExecJS.addDeptJS>
+<@baseExecJS.editJS url="${base}/sys/dept/editpage.htm"></@baseExecJS.editJS>
+<@baseExecJS.deleteJS  url="${base}/sys/dept/remove.htm"></@baseExecJS.deleteJS>
 </body>

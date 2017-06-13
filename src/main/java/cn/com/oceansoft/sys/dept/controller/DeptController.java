@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,8 +65,9 @@ public class DeptController {
     }
 
     @RequestMapping("newpage")
-    public String newPage(String parentCode) {
-        return null;
+    public String newPage(@RequestParam(value ="parentcode") String parentCode, ModelMap model) {
+        model.put("parentCode",parentCode);
+        return "sys/dept/new";
     }
 
     @RequestMapping("add")
