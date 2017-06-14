@@ -40,13 +40,11 @@
 </#macro>
 <#macro bootProgressbarCSS>
 <link href="${base}/resources/plugins/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" type="text/css">
-
 </#macro>
 
 <#macro bootProgressbarJS>
     <script src="${base}/resources/plugins/bootstrap-progressbar/bootstrap-progressbar.min.js" type="application/javascript"></script>
 </#macro>
-
 
 <#macro jsTree>
     <script src="${base}/resources/plugins/jstree/dist/jstree.min.js" type="application/javascript"></script>
@@ -63,4 +61,25 @@
 
 <#macro layerCSS>
     <link href="${base}/resources/plugins/layui/css/layui.css" rel="stylesheet" type="text/css">
+</#macro>
+
+
+<#macro bootSwitchJS>
+    <script src="${base}/resources/plugins/bootstrap-switch-master/dist/js/bootstrap-switch.min.js" type="application/javascript"></script>
+</#macro>
+
+<#macro bootSwitchCSS>
+    <link href="${base}/resources/plugins/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
+</#macro>
+
+<#macro bootValidatorJS>
+    <script src="${base}/resources/plugins/bootstrapvalidator/dist/js/bootstrapValidator.min.js" type="application/javascript"></script>
+</#macro>
+
+<#macro bootValidatorJSLANG>
+    <script src="${base}/resources/plugins/bootstrapvalidator/dist/js/language/zh_CN.js" type="application/javascript"></script>
+</#macro>
+
+<#macro bootValidatorCSS>
+    <link href="${base}/resources/plugins/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet" type="text/css">
 </#macro>

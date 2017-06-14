@@ -45,3 +45,12 @@ body{
 .mag-top{
     margin-top: 50px;
 }
+.submit{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.red{
+    color: red;
+}
