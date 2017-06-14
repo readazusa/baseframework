@@ -1,5 +1,6 @@
 package cn.com.oceansoft.sys.dept.controller;
 
+import cn.com.oceansoft.base.common.Result;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.sys.dept.model.DeptInfo;
 import cn.com.oceansoft.sys.dept.service.IDeptService;
@@ -67,13 +68,23 @@ public class DeptController {
     @RequestMapping("newpage")
     public String newPage(@RequestParam(value ="parentcode") String parentCode, ModelMap model) {
         model.put("parentCode",parentCode);
+        model.put("code",deptService.createCodeByParentCode(parentCode));
         return "sys/dept/new";
     }
 
     @RequestMapping("add")
     @ResponseBody
     public Object doAdd(DeptInfo deptInfo) {
-        return null;
+        Result result = new Result();
+
+        try{
+            deptService.save(deptInfo);
+        }catch (Exception ex){
+           log.error("保存部门信息失败: {}",ex);
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
+        }
+        return result;
     }
 
     @RequestMapping("editpage")

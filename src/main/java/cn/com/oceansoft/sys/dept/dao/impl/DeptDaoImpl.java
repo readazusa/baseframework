@@ -39,7 +39,7 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
 
     @Override
     public void save(DeptInfo obj) {
-            this.getSqlSession().insert("ss",obj);
+            this.getSqlSession().insert("DeptInfo.save",obj);
     }
 
     @Override
@@ -76,5 +76,11 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
     @Override
     public int queryDeptCountByParentCode(String parentCode) {
         return this.getSqlSession().selectOne("DeptInfo.queryDeptCountByParentCode",parentCode);
+    }
+
+
+    @Override
+    public String getCodeByParentCode(String parentCode) {
+        return this.getSqlSession().selectOne("DeptInfo.getCodeByParentCode",parentCode);
     }
 }

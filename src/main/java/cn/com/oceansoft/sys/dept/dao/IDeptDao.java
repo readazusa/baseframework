@@ -13,4 +13,12 @@ public interface IDeptDao extends IDao<DeptInfo> {
 
 
     public int queryDeptCountByParentCode(String parentCode);
+
+
+    /**
+     * 根据部门父编码得到当前的部门编码
+     * @param parentCode
+     * @return
+     */
+    public String getCodeByParentCode(String parentCode);
 }

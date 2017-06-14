@@ -40,8 +40,8 @@
                     <div id="toolbar">
                         <a href="javascript:addDept();" class="btn btn-primary btn-xs"><i
                                 class="icon iconfont"></i>新增</a>
-                        <#--<a href="javascript:remove();" class="btn btn-danger btn-xs"><i-->
-                                <#--class="icon iconfont"></i>删除</a>-->
+                    <#--<a href="javascript:remove();" class="btn btn-danger btn-xs"><i-->
+                    <#--class="icon iconfont"></i>删除</a>-->
                     </div>
                 </div>
             </div>
@@ -59,10 +59,9 @@
 <@config.jsTree></@config.jsTree>
 <@config.layerJS></@config.layerJS>
 <script type="application/javascript">
-
+    var index;
     layui.use(['layer', 'form'], function () {
         layer = layui.layer
-
     });
 
     var $table = $("#table");
@@ -82,7 +81,7 @@
             showPaginationSwitch: true,
             toolbar: '#toolbar',
             clickToSelect: false,
-            detailView: true,
+//            detailView: true,
             showColumns: true,
             columns: [
                 {
@@ -103,9 +102,6 @@
                     field: 'price',
                     title: '操作',
                     formatter: function (value, row, index) {
-//                        console.log("value: " + JSON.stringify(value));
-//                        console.log("row: " + JSON.stringify(row) + ", name: " + row.name);
-//                        console.log("index: " + JSON.stringify(index));
                         return 1;
                     }
                 }
@@ -116,9 +112,7 @@
             onLoadSuccess: function (data) {
                 console.log("data: " + JSON.stringify(data));
             },
-            detailFormatter: function () {
-                return "123123123";
-            },
+
             queryParams: function (param) {
                 console.info("请求的数据: " + JSON.stringify(param));
                 return {"parentcode": "0000"};
@@ -158,7 +152,7 @@
 
 
     function refresh() {
-
+        layer.close(index);
     }
 
     function viewChildrenDept(parentCode) {
@@ -178,7 +172,7 @@
         console.info(JSON.stringify(sel));
     }
 
-    function addDept(){
+    function addDept() {
         add($("#parentCode").val());
     }
 

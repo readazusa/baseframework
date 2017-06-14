@@ -1,16 +1,15 @@
 package cn.com.oceansoft.sys.dept.service.impl;
 
 import cn.com.oceansoft.base.entity.BasePageReqEntity;
+import cn.com.oceansoft.base.util.IdWorkerUtils;
 import cn.com.oceansoft.sys.dept.dao.IDeptDao;
 import cn.com.oceansoft.sys.dept.model.DeptInfo;
 import cn.com.oceansoft.sys.dept.service.IDeptService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by ty on 2017/6/11.
@@ -43,7 +42,10 @@ public class DeptServiceImpl implements IDeptService {
 
     @Override
     public void save(DeptInfo obj) {
-
+        obj.setUid(IdWorkerUtils.instance.getId());
+        obj.setCreateTime(new Date());
+        obj.setUpdateTime(new Date());
+        deptDao.save(obj);
     }
 
     @Override
@@ -115,7 +117,24 @@ public class DeptServiceImpl implements IDeptService {
     }
 
 
-
-
-
+    @Override
+    public String createCodeByParentCode(String parentCode) {
+        String maxCode = deptDao.getCodeByParentCode(parentCode);
+        String targetCode=null;
+        if(StringUtils.isBlank(maxCode)){
+            targetCode=parentCode+"0001";
+        }else{
+           String nowCode =maxCode.substring(parentCode.length());
+            int newCodeInt = Integer.parseInt(nowCode)+1;
+            targetCode=String.valueOf(newCodeInt);
+            if(targetCode.length()==1){
+                targetCode=parentCode+"000"+targetCode;
+            }else if(targetCode.length()==2){
+                targetCode=parentCode+"00"+targetCode;
+            }else if(targetCode.length()==3){
+                targetCode=parentCode+"0"+targetCode;
+            }
+        }
+        return targetCode;
+    }
 }

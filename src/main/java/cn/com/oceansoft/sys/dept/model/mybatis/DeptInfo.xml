@@ -33,4 +33,10 @@
     </select>
 
 
+    <select id="getCodeByParentCode" parameterType="java.lang.String" resultType="java.lang.String">
+        select max(code) from t_sys_dept where parentcode = #{parentCode}
+    </select>
+
+
+
 </mapper>

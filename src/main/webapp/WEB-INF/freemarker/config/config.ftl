@@ -83,3 +83,8 @@
 <#macro bootValidatorCSS>
     <link href="${base}/resources/plugins/bootstrapvalidator/dist/css/bootstrapValidator.min.css" rel="stylesheet" type="text/css">
 </#macro>
+
+
+<#macro jqueryFormJS>
+    <script src="${base}/resources/plugins/form/jquery-form-3.4.6.js" type="application/javascript"></script>
+</#macro>
