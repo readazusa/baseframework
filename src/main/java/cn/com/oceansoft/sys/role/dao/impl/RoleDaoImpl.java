@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ty on 2017/6/11.
@@ -64,6 +65,18 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements IRoleDao {
 
     @Override
     public List<RoleInfo> queryPage(BasePageReqEntity<RoleInfo> param) {
-        return null;
+        return this.getSqlSession().selectList("UserInfo.queryPage",param);
+    }
+
+
+    @Override
+    public void batchSaveRoleVsResource(List<Map<String, Object>> list) {
+        this.getSqlSession().insert("RoleInfo.batchSaveRoleVsResource",list);
+    }
+
+
+    @Override
+    public void deleteRoleVsResourceByRoleId(int id) {
+
     }
 }

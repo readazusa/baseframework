@@ -1,5 +1,6 @@
-<#import "../../template/template.ftl" as template>
+
 <#import "../../config/config.ftl" as config>
+<#import "../../config/baseExecJS.ftl" as baseExec>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +9,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>用户管理</title>
-    <@config.bootCSS></@config.bootCSS>
-    <@config.themeCSS></@config.themeCSS>
-    <@config.fontCSS></@config.fontCSS>
-    <@config.bootTableCSS></@config.bootTableCSS>
-    <@config.jsTreeCSS></@config.jsTreeCSS>
-    <@config.baseCSS></@config.baseCSS>
+<@config.bootCSS></@config.bootCSS>
+<@config.themeCSS></@config.themeCSS>
+<@config.fontCSS></@config.fontCSS>
+<@config.bootTableCSS></@config.bootTableCSS>
+<@config.jsTreeCSS></@config.jsTreeCSS>
+<@config.baseCSS></@config.baseCSS>
 
 </head>
 <body class="nav-md" style="overflow: hidden">
@@ -38,18 +39,21 @@
                                 class="icon iconfont"></i>删除</a>
                     </div>
                 </div>
+
+                <input type="hidden" id="deptCode">
+
             </div>
         </div>
     <@template.mainFooter></@template.mainFooter>
     </div>
 </div>
 
-    <@config.jqueryJS></@config.jqueryJS>
-    <@config.bootJS></@config.bootJS>
-    <@config.themeJS></@config.themeJS>
-    <@config.bootTableJS></@config.bootTableJS>
-    <@config.bootTableJS_ZH_CN></@config.bootTableJS_ZH_CN>
-    <@config.jsTree></@config.jsTree>
+<@config.jqueryJS></@config.jqueryJS>
+<@config.bootJS></@config.bootJS>
+<@config.themeJS></@config.themeJS>
+<@config.bootTableJS></@config.bootTableJS>
+<@config.bootTableJS_ZH_CN></@config.bootTableJS_ZH_CN>
+<@config.jsTree></@config.jsTree>
 <script type="application/javascript">
     var $table = $("#table");
     $(function () {
@@ -74,21 +78,35 @@
 //            cardView:true,
             columns: [
                 {
-                    field: 'id',
-                    title: 'Item-ID00'
+                    field: 'username',
+                    title: '用户名'
                 },
                 {
-                    field: 'id',
-                    title: 'Item-ID'
-                }, {
                     field: 'name',
-                    title: 'Item-Name'
+                    title: '姓名'
                 }, {
-                    field: 'price',
-                    title: 'Item-Price',
-                },
-                {
-                    field: 'price',
+                    field: 'mobile',
+                    title: '联系电话'
+                }, {
+                    field: 'sex',
+                    title: '性别',
+                    formatter: function (value, row, index) {
+                        var result = null;
+                        if (value == 'male') {
+                            result = "男";
+                        } else {
+                            result = "女";
+                        }
+                        return result;
+                    }
+                }, {
+                    field: "position",
+                    title: "职位"
+                }, {
+                    field:"birthdayStr",
+                    title:"生日"
+                },{
+                    field: 'id',
                     title: '操作',
                     formatter: function (value, row, index) {
 //                        console.log("value: " + JSON.stringify(value));
@@ -101,11 +119,15 @@
             onCheck: function (row) {
                 console.info("row: " + JSON.stringify(row));
             },
-            onLoadSuccess:function(data){
-                console.log("data: "+ JSON.stringify(data));
+            onLoadSuccess: function (data) {
+                console.log("data: " + JSON.stringify(data));
             },
             detailFormatter: function () {
                 return "123123123";
+            },
+            queryParams: function (param) {
+                console.info("请求的数据: " + JSON.stringify(param));
+                return {"deptCode": $("#deptCode").val(), "offset": param.offset, "limit": param.limit};
             }
         });
 
@@ -133,19 +155,22 @@
             }
         });
 
+        $('#tree').bind('activate_node.jstree', function (obj, e) {
+            var node = e.node;
+            var id = node.id;    //部门编码
+            $("#deptCode").val(id)
+            reload();
+        });
     });
 
-
-
-    function onChoiceAll() {
-        var sel = $table.bootstrapTable("refresh", {
-            query: {
-                name: "一二三"
-            }
-        });
-        console.info(JSON.stringify(sel));
+    function reload() {
+        $table.bootstrapTable("refresh")
     }
+
+
 </script>
 
-
+<@baseExec.addDeptJS url=""></@baseExec.addDeptJS>
+<@baseExec.editJS url=""></@baseExec.editJS>
+<@baseExec.deleteJS url=""></@baseExec.deleteJS>
 </body>

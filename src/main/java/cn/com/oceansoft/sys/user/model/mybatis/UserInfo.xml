@@ -2,10 +2,63 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="DeptInfp">
+<mapper namespace="UserInfo">
 
-    <select id="queryDeptInfosByParentCode" parameterType="java.lang.String" resultType="DeptInfo">
 
+    <insert id="save" parameterType="UserInfo" keyProperty="id" useGeneratedKeys="true">
+      insert into t_sys_user(uid,name,username,password,birthday,sex,deptcode,deptname,mobile,phone,position,flag,createtime,updatetime,syscreatetime)
+      VALUES (#{uid},#{name},#{username},#{password},#{birthday},#{sex},#{deptCode},#{deptName},#{mobile},#{phone},#{position},#{flag},#{createTime},#{updateTime},now())
+    </insert>
+
+
+    <update id="update" parameterType="UserInfo">
+        update t_sys_user set username=#{username},password = #{password},birthday=#{birthday},sex=#{sex},deptcode=#{deptCode},deptname=#{deptName},
+        mobile=#{mobile},phone=#{phone},position=#{position},flag=#{flag},updatetime = #{updateTime} where id = #{id}
+    </update>
+
+
+    <insert id="batchSaveUserVsRole">
+
+        insert into t_sys_user_role(userid,roleid,createtime)
+        VALUES
+        <foreach collection="list" item="userVsRole" separator="," open="(" close=")" >
+            #{userVsRole.userId},#{userVsRole.roleId},#{userVsRole.createTime}
+        </foreach>
+    </insert>
+
+
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from t_sys_user where id = #{id}
+    </delete>
+
+
+    <delete id="deleteUserVsRoleByUserId" parameterType="java.lang.Integer">
+        delete from t_sys_user_role where userid = #{id}
+
+    </delete>
+
+
+    <select id="quertObjectById" parameterType="java.lang.Integer" resultType="UserInfo">
+        select * from t_sys_user where id = #{id}
     </select>
+
+
+    <select id="queryPage" parameterType="BasePageReqEntity" resultType="UserInfo">
+
+        select * from t_sys_user where 1=1
+        <if test="obj.deptCode != null and obj.deptCode !=''">
+            and deptcode = #{obj.deptCode}
+        </if>
+        limit #{limit} offset #{offset}
+    </select>
+
+
+    <select id="getTotalCount" parameterType="UserInfo" resultType="java.lang.Integer">
+        select count(1) from t_sys_user where 1=1
+         <if test="deptCode != '' and deptCode !=null">
+            and deptcode = ${deptCode}
+         </if>
+    </select>
+
 
 </mapper>

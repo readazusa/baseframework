@@ -3,6 +3,9 @@ package cn.com.oceansoft.sys.user.controller;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
 import cn.com.oceansoft.base.util.UuidUtils;
+import cn.com.oceansoft.sys.user.model.ReqUserInfoEntity;
+import cn.com.oceansoft.sys.user.model.UserInfo;
+import cn.com.oceansoft.sys.user.service.IUserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -25,6 +29,10 @@ public class UserController {
 
     private static final Logger log = LogManager.getLogger(UserController.class);
 
+    @Resource
+    private IUserService userService;
+
+
     @RequestMapping("index")
     public String index(){
         return "sys/user/index";
@@ -32,24 +40,9 @@ public class UserController {
 
     @RequestMapping("querypage")
     @ResponseBody
-    public Object queryPage(@RequestBody BaseReqEntity baseReqEntity, HttpServletRequest request){
+    public Object queryPage(@RequestBody ReqUserInfoEntity reqUserInfoEntity, HttpServletRequest request){
         log.debug("分页发起了请求");
-//        log.debug("offset: {}",request.getParameter("offset"));
-//        log.debug("limit:{}",request.getParameter("limit"));
-//        log.debug("name: {}",request.getParameter("name"));
-        log.debug("baseReqEntity的基本数据: {}",baseReqEntity);
-        List<Map> list = new ArrayList<>();
-        for(int i=0;i<20;i++){
-            Map<String,String> map = new HashMap<>();
-            map.put("id", UuidUtils.getUpperUuid());
-            map.put("name","你好");
-            map.put("price","价格");
-            list.add(map);
-        }
-        BasePageResultEntity basePageResultEntity = new BasePageResultEntity<Map>();
-        basePageResultEntity.setRows(list);
-        basePageResultEntity.setTotal(20);
-        basePageResultEntity.setOffset(baseReqEntity.getOffset());
+        BasePageResultEntity<UserInfo> basePageResultEntity = userService.queryPage(reqUserInfoEntity);
         return basePageResultEntity;
     }
 }

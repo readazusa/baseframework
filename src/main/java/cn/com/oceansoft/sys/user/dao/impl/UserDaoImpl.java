@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ty on 2017/6/11.
@@ -60,11 +61,23 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements IUserDao {
 
     @Override
     public int getTotalCount(UserInfo userInfo) {
-        return 0;
+        return this.getSqlSession().selectOne("UserInfo.getTotalCount",userInfo);
     }
 
     @Override
     public List<UserInfo> queryPage(BasePageReqEntity<UserInfo> param) {
-        return null;
+        return this.getSqlSession().selectOne("UserInfo.queryPage",param);
+    }
+
+
+    @Override
+    public void batchSaveUserVsRole(List<Map<String, Object>> list) {
+
+    }
+
+
+    @Override
+    public void deleteUserVsRoleByUserId(int userId) {
+
     }
 }
