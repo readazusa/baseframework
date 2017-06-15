@@ -40,11 +40,12 @@
 <#macro deleteJS url title="">
 <script type="application/javascript">
     function remove(id) {
+        alert(123);
         $.ajax({
             url: "${url}?id=" + id,
             success: function (resp) {
-                if ("SUCCESS" == resp.code) {
-                    index = layer.alert(resp.msg, function (index) {
+                if ("0000" == resp.code) {
+                    index = layer.msg(resp.msg, function (index) {
                         refresh();
                     })
                 } else {

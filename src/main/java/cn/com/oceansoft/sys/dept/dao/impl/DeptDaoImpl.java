@@ -49,7 +49,7 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
 
     @Override
     public void deleteById(int uid) {
-
+            this.getSqlSession().delete("DeptInfo.deleleById",uid);
     }
 
     @Override

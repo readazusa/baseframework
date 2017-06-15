@@ -40,8 +40,8 @@
                     <div id="toolbar">
                         <a href="javascript:addDept();" class="btn btn-primary btn-xs"><i
                                 class="icon iconfont"></i>新增</a>
-                    <#--<a href="javascript:remove();" class="btn btn-danger btn-xs"><i-->
-                    <#--class="icon iconfont"></i>删除</a>-->
+                    <#--<a href="javascript:test();" class="btn btn-danger btn-xs"><i-->
+                    <#--class="icon iconfont"></i>测试</a>-->
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
 <@config.jsTree></@config.jsTree>
 <@config.layerJS></@config.layerJS>
 <script type="application/javascript">
-    var index;
+    var index=0;
     layui.use(['layer', 'form'], function () {
         layer = layui.layer
     });
@@ -81,7 +81,6 @@
             showPaginationSwitch: true,
             toolbar: '#toolbar',
             clickToSelect: false,
-//            detailView: true,
             showColumns: true,
             columns: [
                 {
@@ -99,24 +98,17 @@
                     title: '领导电话',
                 },
                 {
-                    field: 'price',
+                    field: 'id',
                     title: '操作',
                     formatter: function (value, row, index) {
-                        return 1;
+                        console.info("value: "+ value);
+                        return '<button class="btn btn-primary btn-info" >编辑</button>&nbsp;<button class="btn btn-primary btn-warning">查看</button>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove('+value+');">删除</a>';
                     }
                 }
             ],
-            onCheck: function (row) {
-                console.info("row: " + JSON.stringify(row));
-            },
-            onLoadSuccess: function (data) {
-                console.log("data: " + JSON.stringify(data));
-            },
-
             queryParams: function (param) {
                 console.info("请求的数据: " + JSON.stringify(param));
-                return {"parentcode": "0000"};
-
+                return {"parentcode": $("#parentCode").val()};
             }
         });
 
@@ -147,21 +139,31 @@
         $('#tree').bind('activate_node.jstree', function (obj, e) {
             var node = e.node;
             var id = node.id;
+            $("#parentCode").val(id);
+            reload();
         });
     });
 
 
     function refresh() {
         layer.close(index);
+        var ref = $('#tree').jstree(true);
+//                sel = ref.get_selected();
+//        if(!sel.length) { return false; }
+//        sel = sel[0];
+        sel = ref.load_node($("#parentCode").val());
+        reload();
     }
 
     function viewChildrenDept(parentCode) {
 
     }
 
-    function remove() {
-        alert("执行删除");
+    function reload() {
+        $table.bootstrapTable("refresh");
     }
+
+
 
     function onChoiceAll() {
         var sel = $table.bootstrapTable("refresh", {
@@ -181,5 +183,5 @@
 
 <@baseExecJS.addDeptJS url="${base}/sys/dept/newpage.htm" title="新增部门"></@baseExecJS.addDeptJS>
 <@baseExecJS.editJS url="${base}/sys/dept/editpage.htm"></@baseExecJS.editJS>
-<@baseExecJS.deleteJS  url="${base}/sys/dept/remove.htm"></@baseExecJS.deleteJS>
+<@baseExecJS.deleteJS  url="${base}/sys/dept/remove.json"></@baseExecJS.deleteJS>
 </body>

@@ -55,7 +55,7 @@ public class DeptServiceImpl implements IDeptService {
 
     @Override
     public void deleteById(int uid) {
-
+        deptDao.deleteById(uid);
     }
 
     @Override

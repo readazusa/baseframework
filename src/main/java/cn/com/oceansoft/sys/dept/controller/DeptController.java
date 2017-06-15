@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,14 +89,22 @@ public class DeptController {
     }
 
     @RequestMapping("editpage")
-    public String editPage(int id) {
+    public String editPage(int id, ModelMap model) {
+        DeptInfo deptInfo= deptService.queryObjectById(id);
+        model.put("deptInfo",deptInfo);
         return null;
     }
 
     @RequestMapping("update")
     @ResponseBody
     public Object doUpdate(DeptInfo deptInfo) {
-        return null;
+        Result result = new Result();
+        try{
+            deptService.update(deptInfo);
+        }catch (Exception ex){
+
+        }
+        return result;
     }
 
     @RequestMapping("viewpage")
@@ -106,7 +115,15 @@ public class DeptController {
     @RequestMapping("remove")
     @ResponseBody
     public Object remove(int id) {
-        return null;
+        Result result = new Result();
+        try{
+            deptService.deleteById(id);
+        }catch (Exception ex){
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
+        }
+
+        return result;
     }
 
 

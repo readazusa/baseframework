@@ -30,5 +30,4 @@ public interface IDao<T> {
 
     public List<T> queryPage(BasePageReqEntity<T> param);
 
-
 }
