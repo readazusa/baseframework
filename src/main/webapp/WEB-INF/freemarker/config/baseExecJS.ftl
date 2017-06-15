@@ -40,7 +40,6 @@
 <#macro deleteJS url title="">
 <script type="application/javascript">
     function remove(id) {
-        alert(123);
         $.ajax({
             url: "${url}?id=" + id,
             success: function (resp) {
