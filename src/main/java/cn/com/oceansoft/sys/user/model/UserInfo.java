@@ -1,6 +1,7 @@
 package cn.com.oceansoft.sys.user.model;
 
 import cn.com.oceansoft.base.entity.BaseInfo;
+import cn.com.oceansoft.base.util.DateFormatUtils;
 
 import java.util.Date;
 
@@ -31,6 +32,8 @@ public class UserInfo extends BaseInfo{
     private String position;  //职位
 
     private String flag;  //状态 0：正常  1：禁用
+
+    private String birthdayStr;
 
     public String getUsername() {
             return  username;
@@ -110,5 +113,13 @@ public class UserInfo extends BaseInfo{
 
     public void setFlag(String flag) {
         this.flag = flag;
+    }
+
+    public String getBirthdayStr() {
+        return DateFormatUtils.getFormatDate(this.getBirthday(),"yyyy-MM-dd HH:mm:ss");
+    }
+
+    public void setBirthdayStr(String birthdayStr) {
+        this.birthdayStr = birthdayStr;
     }
 }

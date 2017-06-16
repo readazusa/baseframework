@@ -29,7 +29,7 @@ public class ResourceDaoImpl extends SqlSessionDaoSupport implements IResourceDa
 
     @Override
     public ResourceInfo queryObjectById(int id) {
-        return null;
+        return this.getSqlSession().selectOne("ResourceInfo.queryObjectById",id);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ResourceDaoImpl extends SqlSessionDaoSupport implements IResourceDa
 
     @Override
     public void save(ResourceInfo obj) {
-
+        this.getSqlSession().insert("ResourceInfo.save",obj);
     }
 
     @Override
@@ -49,21 +49,21 @@ public class ResourceDaoImpl extends SqlSessionDaoSupport implements IResourceDa
 
     @Override
     public void deleteById(int uid) {
-
+        this.getSqlSession().delete("ResourceInfo.deleteById",uid);
     }
 
     @Override
     public void update(ResourceInfo resourceInfo) {
-
+            this.getSqlSession().update("ResourceInfo.update",resourceInfo);
     }
 
     @Override
     public int getTotalCount(ResourceInfo resourceInfo) {
-        return 0;
+        return this.getSqlSession().selectOne("ResourceInfo.getTotalCount",resourceInfo);
     }
 
     @Override
     public List<ResourceInfo> queryPage(BasePageReqEntity<ResourceInfo> param) {
-        return null;
+        return this.getSqlSession().selectList("ResourceInfo.queryPage",param);
     }
 }

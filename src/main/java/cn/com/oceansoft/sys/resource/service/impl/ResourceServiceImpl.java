@@ -1,6 +1,8 @@
 package cn.com.oceansoft.sys.resource.service.impl;
 
 import cn.com.oceansoft.base.entity.BasePageReqEntity;
+import cn.com.oceansoft.base.entity.BasePageResultEntity;
+import cn.com.oceansoft.base.entity.BaseReqEntity;
 import cn.com.oceansoft.sys.resource.dao.IResourceDao;
 import cn.com.oceansoft.sys.resource.model.ResourceInfo;
 import cn.com.oceansoft.sys.resource.service.IResourceService;
@@ -61,6 +63,11 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public List<ResourceInfo> queryPage(BasePageReqEntity<ResourceInfo> param) {
+        return null;
+    }
+
+    @Override
+    public BasePageResultEntity queryPage(BaseReqEntity baseReqEntity) {
         return null;
     }
 }

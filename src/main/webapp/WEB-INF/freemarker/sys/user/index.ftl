@@ -1,4 +1,4 @@
-
+<#import "../../template/template.ftl" as template>
 <#import "../../config/config.ftl" as config>
 <#import "../../config/baseExecJS.ftl" as baseExec>
 <!DOCTYPE html>
@@ -14,6 +14,7 @@
 <@config.fontCSS></@config.fontCSS>
 <@config.bootTableCSS></@config.bootTableCSS>
 <@config.jsTreeCSS></@config.jsTreeCSS>
+<@config.layerCSS></@config.layerCSS>
 <@config.baseCSS></@config.baseCSS>
 
 </head>
@@ -33,15 +34,14 @@
                         <table id="table"></table>
                     </div>
                     <div id="toolbar">
-                        <a href="javascript:void(0);" class="btn btn-primary btn-xs"><i
+                        <a href="javascript:addUser();" class="btn btn-primary"><i
                                 class="icon iconfont"></i>新增</a>
-                        <a href="javascript:remove();" class="btn btn-danger btn-xs"><i
-                                class="icon iconfont"></i>删除</a>
+                    <#--<a href="javascript:remove();" class="btn btn-danger btn-xs"><i-->
+                    <#--class="icon iconfont"></i>删除</a>-->
                     </div>
                 </div>
-
-                <input type="hidden" id="deptCode">
-
+                <input type="hidden" id="deptCode" value="0000">
+                <input type="hidden" id="deptName" value="新区城管局">
             </div>
         </div>
     <@template.mainFooter></@template.mainFooter>
@@ -54,7 +54,14 @@
 <@config.bootTableJS></@config.bootTableJS>
 <@config.bootTableJS_ZH_CN></@config.bootTableJS_ZH_CN>
 <@config.jsTree></@config.jsTree>
+<@config.layerJS></@config.layerJS>
 <script type="application/javascript">
+
+    var index = 0;
+    layui.use(['layer'], function () {
+        layer = layui.layer
+    });
+
     var $table = $("#table");
     $(function () {
         table = $('#table').bootstrapTable({
@@ -75,7 +82,6 @@
             detailView: true,
             idField: "id",
             showColumns: true,
-//            cardView:true,
             columns: [
                 {
                     field: 'username',
@@ -103,16 +109,13 @@
                     field: "position",
                     title: "职位"
                 }, {
-                    field:"birthdayStr",
-                    title:"生日"
-                },{
+                    field: "birthdayStr",
+                    title: "生日"
+                }, {
                     field: 'id',
                     title: '操作',
                     formatter: function (value, row, index) {
-//                        console.log("value: " + JSON.stringify(value));
-//                        console.log("row: " + JSON.stringify(row) + ", name: " + row.name);
-//                        console.log("index: " + JSON.stringify(index));
-                        return 1;
+                        return '<button class="btn btn-primary btn-info" >编辑</button>&nbsp;<button class="btn btn-primary btn-warning">查看</button>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove(' + value + ');">删除</a>';
                     }
                 }
             ],
@@ -158,7 +161,9 @@
         $('#tree').bind('activate_node.jstree', function (obj, e) {
             var node = e.node;
             var id = node.id;    //部门编码
+            var name = node.text;
             $("#deptCode").val(id)
+            $("#deptName").val(name);
             reload();
         });
     });
@@ -167,10 +172,21 @@
         $table.bootstrapTable("refresh")
     }
 
+    function addUser() {
+        var deptCode = $("#deptCode").val();
+        var deptName = $("#deptName").val();
+        index = layer.open({
+            type: 2,
+            title: "新增用户",
+            shadeClose: true,
+            maxmin: true,
+            area: ['50%', '85%'],
+            content: "${base}/sys/user/newpage.htm?deptcode=" +deptCode+"&deptname="+deptName
+        });
+    }
 
 </script>
 
-<@baseExec.addDeptJS url=""></@baseExec.addDeptJS>
 <@baseExec.editJS url=""></@baseExec.editJS>
 <@baseExec.deleteJS url=""></@baseExec.deleteJS>
 </body>

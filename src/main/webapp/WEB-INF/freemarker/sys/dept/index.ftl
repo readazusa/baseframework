@@ -139,6 +139,7 @@
         $('#tree').bind('activate_node.jstree', function (obj, e) {
             var node = e.node;
             var id = node.id;
+            console.info("sssid: "+ id);
             $("#parentCode").val(id);
             reload();
         });

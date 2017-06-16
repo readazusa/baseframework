@@ -88,3 +88,12 @@
 <#macro jqueryFormJS>
     <script src="${base}/resources/plugins/form/jquery-form-3.4.6.js" type="application/javascript"></script>
 </#macro>
+
+
+<#macro bootSelectCSS>
+    <link href="${base}/resources/plugins/bootstrap-select-1.12.2/dist/css/bootstrap-select.min.css" rel="stylesheet" type="text/css">
+</#macro>
+
+<#macro bootSelectJS>
+    <script src="${base}/resources/plugins/bootstrap-select-1.12.2/dist/js/bootstrap-select.min.js" type="application/javascript"></script>
+</#macro>

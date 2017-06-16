@@ -6,9 +6,11 @@ import cn.com.oceansoft.base.util.UuidUtils;
 import cn.com.oceansoft.sys.user.model.ReqUserInfoEntity;
 import cn.com.oceansoft.sys.user.model.UserInfo;
 import cn.com.oceansoft.sys.user.service.IUserService;
+import com.sun.corba.se.impl.oa.NullServantImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,4 +47,47 @@ public class UserController {
         BasePageResultEntity<UserInfo> basePageResultEntity = userService.queryPage(reqUserInfoEntity);
         return basePageResultEntity;
     }
+
+
+    @RequestMapping("newpage")
+    public String newPage(String deptcode, String deptname, ModelMap model){
+        model.put("deptcode",deptcode);
+        model.put("deptname",deptname);
+        return "sys/user/new";
+    }
+
+
+    @RequestMapping("editpage")
+    public String editPage(int id){
+        return "sys/user/edit";
+    }
+
+    @RequestMapping("add")
+    @ResponseBody
+    public Object add(UserInfo userInfo){
+        return null;
+    }
+
+    @RequestMapping("update")
+    @ResponseBody
+    public Object update(UserInfo userInfo){
+        return null;
+    }
+
+
+    @RequestMapping("delete")
+    @ResponseBody
+    public Object delete(int id){
+        return null;
+    }
+
+
+    @RequestMapping("view")
+    public String view(){
+        return null;
+    }
+
+
+
+
 }

@@ -125,4 +125,8 @@ public class DeptController {
     }
 
 
+    @RequestMapping("tree")
+    public String tree(){
+        return "sys/dept/tree";
+    }
 }
