@@ -97,3 +97,12 @@
 <#macro bootSelectJS>
     <script src="${base}/resources/plugins/bootstrap-select-1.12.2/dist/js/bootstrap-select.min.js" type="application/javascript"></script>
 </#macro>
+
+
+<#macro bootICheckCSS>
+    <link href="${base}/resources/plugins/iCheck/skins/all.css" rel="stylesheet" type="text/css">
+</#macro>
+
+<#macro bootICheckJS>
+    <script src="${base}/resources/plugins/iCheck/icheck.min.js" type="application/javascript"></script>
+</#macro>

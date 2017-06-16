@@ -5,8 +5,8 @@
 <mapper namespace="ResourceInfo">
 
     <insert id="save" parameterType="ResourceInfo">
-        insert into t_sys_resource(name,code,createtime,updatetime,syscreatetime)
-        VALUES (#{name},#{code},#{updateTime},#{updateTime},now())
+        insert into t_sys_resource(uid,name,code,createtime,updatetime,syscreatetime)
+        VALUES (#{uid},#{name},#{code},#{updateTime},#{updateTime},now())
     </insert>
 
     <select id="queryObjectById" parameterType="java.lang.Integer" resultType="ResourceInfo">
@@ -17,7 +17,7 @@
         delete from t_sys_resource where id = #{id}
     </delete>
 
-    <select id="getTotalCount" parameterType="ResourceInfo">
+    <select id="getTotalCount" parameterType="ResourceInfo" resultType="java.lang.Integer">
         select count(1) from t_sys_resource
     </select>
 
@@ -27,7 +27,7 @@
 
     <select id="queryPage" parameterType="BasePageReqEntity" resultType="ResourceInfo">
         select * from t_sys_resource where 1=1
-        <if test="name != '' and name !=null">
+        <if test="obj.name != '' and obj.name !=null">
             and name = #{name}
         </if>
         limit #{limit} offset #{offset}

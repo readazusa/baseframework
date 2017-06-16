@@ -1,5 +1,8 @@
 <#import "../../template/template.ftl" as template>
 <#import "../../config/config.ftl" as config>
+<#import "../../config/baseExecJS.ftl" as baseExec>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +10,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>角色管理</title>
+    <title>权限管理</title>
 <@config.bootCSS></@config.bootCSS>
 <@config.themeCSS></@config.themeCSS>
 <@config.fontCSS></@config.fontCSS>
 <@config.bootTableCSS></@config.bootTableCSS>
 <@config.baseCSS></@config.baseCSS>
-
+<@config.layerCSS></@config.layerCSS>
 </head>
 <body class="nav-md" style="overflow: hidden">
 <div class="container body">
@@ -37,9 +40,15 @@
 <@config.bootJS></@config.bootJS>
 <@config.themeJS></@config.themeJS>
 <@config.bootSelectJS></@config.bootSelectJS>
+<@config.bootTableJS></@config.bootTableJS>
 <@config.bootTableJS_ZH_CN></@config.bootTableJS_ZH_CN>
-
+<@config.layerJS></@config.layerJS>
 <script type="application/javascript">
+    var index=0;
+    layui.use(['layer'], function () {
+        layer = layui.layer
+    });
+
     var $table = $("#table");
     $(function () {
         table = $('#table').bootstrapTable({
@@ -57,7 +66,7 @@
             showPaginationSwitch: true,
             toolbar: '#toolbar',
             clickToSelect: false,
-            detailView: true,
+//            detailView: true,
             idField: "id",
             showColumns: true,
             columns: [
@@ -81,18 +90,29 @@
             },
             onLoadSuccess: function (data) {
                 console.log("data: " + JSON.stringify(data));
-            },
-            detailFormatter: function () {
-                return "123123123";
             }
+//            detailFormatter: function () {
+//                return "123123123";
+//            }
 //            queryParams: function (param) {
 //                console.info("请求的数据: " + JSON.stringify(param));
 //                return {"deptCode": $("#deptCode").val(), "offset": param.offset, "limit": param.limit};
 //            }
 
+        });
+    });
+    function refresh(){
 
-        })
+        $table.bootstrapTable("refresh");
+
+        layer.close(index);
+    }
 
 
 </script>
+
+<@baseExec.addJS url="${base}/sys/resource/newpage.htm" title="新增权限" height="50%"></@baseExec.addJS>
+<@baseExec.editJS url="${base}/sys/resource/edit.htm" title="编辑权限" height="50%"></@baseExec.editJS>
+<@baseExec.deleteJS url="${base}/sys/resource/delete.json"></@baseExec.deleteJS>
+
 </body>

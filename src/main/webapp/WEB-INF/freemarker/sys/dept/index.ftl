@@ -182,7 +182,7 @@
 </script>
 
 
-<@baseExecJS.addDeptJS url="${base}/sys/dept/newpage.htm" title="新增部门"></@baseExecJS.addDeptJS>
+<@baseExecJS.addDeptJS url="${base}/sys/dept/newpage.htm" title="新增部门" ></@baseExecJS.addDeptJS>
 <@baseExecJS.editJS url="${base}/sys/dept/editpage.htm"></@baseExecJS.editJS>
 <@baseExecJS.deleteJS  url="${base}/sys/dept/remove.json"></@baseExecJS.deleteJS>
 </body>

@@ -40,7 +40,7 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements IRoleDao {
 
     @Override
     public void save(RoleInfo obj) {
-
+        this.getSqlSession().insert("RoleInfo.save",obj);
     }
 
     @Override
@@ -50,17 +50,17 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements IRoleDao {
 
     @Override
     public void deleteById(int uid) {
-
+        this.getSqlSession().delete("RoleInfo.deleteById",uid);
     }
 
     @Override
     public void update(RoleInfo roleInfo) {
-
+        this.getSqlSession().update("RoleInfo.update",roleInfo);
     }
 
     @Override
     public int getTotalCount(RoleInfo roleInfo) {
-        return 0;
+        return this.getSqlSession().selectOne("RoleInfo.getTotalCount",roleInfo);
     }
 
     @Override

@@ -3,12 +3,14 @@ package cn.com.oceansoft.sys.resource.service.impl;
 import cn.com.oceansoft.base.entity.BasePageReqEntity;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
+import cn.com.oceansoft.base.util.IdWorkerUtils;
 import cn.com.oceansoft.sys.resource.dao.IResourceDao;
 import cn.com.oceansoft.sys.resource.model.ResourceInfo;
 import cn.com.oceansoft.sys.resource.service.IResourceService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public ResourceInfo queryObjectById(int id) {
-        return null;
+        return resourceDao.queryObjectById(id);
     }
 
     @Override
@@ -38,7 +40,10 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public void save(ResourceInfo obj) {
-
+        obj.setUid(IdWorkerUtils.instance.getId());
+        obj.setCreateTime(new Date());
+        obj.setUpdateTime(new Date());
+        resourceDao.save(obj);
     }
 
     @Override
@@ -48,26 +53,37 @@ public class ResourceServiceImpl implements IResourceService {
 
     @Override
     public void deleteById(int uid) {
-
+        resourceDao.deleteById(uid);
     }
 
     @Override
     public void update(ResourceInfo resourceInfo) {
-
+        resourceInfo.setUpdateTime(new Date());
+        resourceDao.update(resourceInfo);
     }
 
     @Override
     public int getTotalCount(ResourceInfo resourceInfo) {
-        return 0;
+        return resourceDao.getTotalCount(resourceInfo);
     }
 
     @Override
     public List<ResourceInfo> queryPage(BasePageReqEntity<ResourceInfo> param) {
-        return null;
+        return resourceDao.queryPage(param);
     }
 
     @Override
     public BasePageResultEntity queryPage(BaseReqEntity baseReqEntity) {
-        return null;
+        ResourceInfo resourceInfo = new ResourceInfo();
+        BasePageReqEntity basePageReqEntity = new BasePageReqEntity();
+        basePageReqEntity.setObj(resourceInfo);
+        basePageReqEntity.setOffset(baseReqEntity.getOffset());
+        basePageReqEntity.setLimit(baseReqEntity.getLimit());
+        List<ResourceInfo> resourceInfoList = queryPage(basePageReqEntity);
+        int totalCount = getTotalCount(resourceInfo);
+        BasePageResultEntity basePageResultEntity = new BasePageResultEntity();
+        basePageResultEntity.setRows(resourceInfoList);
+        basePageResultEntity.setTotal(totalCount);
+        return basePageResultEntity;
     }
 }
