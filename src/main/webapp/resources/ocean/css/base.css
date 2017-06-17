@@ -79,3 +79,12 @@ body{
     flex-direction: column;
     margin-top: 30px;
 }
+
+.roleclass{
+    display: flex;
+    flex-direction: row;
+}
+
+.roleclass .resdiv{
+    margin-left: 10px;
+}

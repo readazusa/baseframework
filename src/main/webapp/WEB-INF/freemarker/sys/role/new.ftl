@@ -33,37 +33,25 @@
         </div>
 
         <div class="form-group">
-            <input type="checkbox" checked name="res">
-            <input type="checkbox" checked name="res"><input type="checkbox" checked name="res"><input type="checkbox" checked name="res"><input type="checkbox" checked name="res">
 
-            <ul class="list">
-                <li>
-                    <input tabindex="9" type="checkbox" id="square-checkbox-1">
-                    <label for="square-checkbox-1">Checkbox 1</label>
-                </li>
-                <li>
-                    <input tabindex="10" type="checkbox" id="square-checkbox-2" checked>
-                    <label for="square-checkbox-2">Checkbox 2</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="square-checkbox-disabled" disabled>
-                    <label for="square-checkbox-disabled">Disabled</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="square-checkbox-disabled-checked" checked disabled>
-                    <label for="square-checkbox-disabled-checked">Disabled &amp; checked</label>
-                </li>
-            </ul>
-            <ul class="list">
-                <li>
-                    <input tabindex="11" type="radio" id="square-radio-1" name="square-radio">
-                    <label for="square-radio-1">Radio button 1</label>
-                </li>
-                <li>
-                    <input tabindex="12" type="radio" id="square-radio-2" name="square-radio" checked>
-                    <label for="square-radio-2">Radio button 2</label>
-                </li>
-            </ul>
+            <div class="col-sm-6 col-sm-offset-2 roleclass">
+                <div class="resdiv"> <label for="one">角色1</label>
+                    <input type="checkbox" checked name="res" id="one">
+                </div>
+                <div class="resdiv"> <label>角色1</label>
+                    <input type="checkbox" checked name="res">
+                </div>
+                <div class="resdiv"> <label>角色1</label>
+                    <input type="checkbox" checked name="res">
+                </div>
+                <div class="resdiv"> <label>角色1</label>
+                    <input type="checkbox" checked name="res">
+                </div>
+
+
+
+            </div>
+
 
         </div>
 
