@@ -65,15 +65,13 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements IRoleDao {
 
     @Override
     public List<RoleInfo> queryPage(BasePageReqEntity<RoleInfo> param) {
-        return this.getSqlSession().selectList("UserInfo.queryPage",param);
+        return this.getSqlSession().selectList("RoleInfo.queryPage",param);
     }
-
 
     @Override
     public void batchSaveRoleVsResource(List<Map<String, Object>> list) {
         this.getSqlSession().insert("RoleInfo.batchSaveRoleVsResource",list);
     }
-
 
     @Override
     public void deleteRoleVsResourceByRoleId(int id) {

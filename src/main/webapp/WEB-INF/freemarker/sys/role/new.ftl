@@ -18,13 +18,14 @@
 
 <div class="container  mag-top">
     <form class="form-horizontal" role="form" id="resourceForm">
+
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-4 control-label">权限名称</label>
             <div class="col-sm-8">
                 <input type="text" class="form-control" id="inputEmail3" placeholder="请输入权限名称" name="name">
             </div>
-
         </div>
+
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-4 control-label">权限编码</label>
             <div class="col-sm-8">
@@ -33,26 +34,14 @@
         </div>
 
         <div class="form-group">
-
-            <div class="col-sm-6 col-sm-offset-2 roleclass">
-                <div class="resdiv"> <label for="one">角色1</label>
-                    <input type="checkbox" checked name="res" id="one">
-                </div>
-                <div class="resdiv"> <label>角色1</label>
-                    <input type="checkbox" checked name="res">
-                </div>
-                <div class="resdiv"> <label>角色1</label>
-                    <input type="checkbox" checked name="res">
-                </div>
-                <div class="resdiv"> <label>角色1</label>
-                    <input type="checkbox" checked name="res">
-                </div>
-
-
-
+            <label class="col-sm-4 control-label">选择权限</label>
+            <div class="col-sm-8 roleclass">
+                <#list resources as resource>
+                    <div class="resdiv"> <label for="s_${resource.code}">${resource.name}</label>
+                        <input type="checkbox" name="res" id="s_${resource.code}" value="${resource.code}">
+                    </div>
+                </#list>
             </div>
-
-
         </div>
 
     </form>
@@ -92,22 +81,22 @@
             },
             fields: {
                 name: {
-                    message: '权限名称不能为空',
+                    message: '角色名称不能为空',
                     validators: {
                         notEmpty: {
-                            message: '权限名称不能为空'
+                            message: '角色名称不能为空'
                         },
                         stringLength: {
                             min: 2,
                             max: 18,
-                            message: '权限称长度必须在6到18位之间'
+                            message: '角色名称长度必须在6到18位之间'
                         }
                     }
                 },
                 code: {
                     validators: {
                         notEmpty: {
-                            message: '权限编码不能为空'
+                            message: '角色编码不能为空'
                         }
                     }
                 }
@@ -126,11 +115,11 @@
         bootstrapValidator.validate();
         if (bootstrapValidator.isValid()) {
             $("#resourceForm").ajaxSubmit({
-                url: "${base}/sys/resource/add.json",
+                url: "${base}/sys/role/add.json",
                 type: 'post',
                 success: function (resp) {
                     if (resp.code = "0000") {
-                        layer.msg("新增权限成功", function () {
+                        layer.msg("新增角色成功", function () {
                             parent.refresh();
                         });
                     } else {

@@ -1,5 +1,6 @@
 package cn.com.oceansoft.sys.resource.dao.impl;
 
+import cn.com.oceansoft.base.common.Result;
 import cn.com.oceansoft.base.entity.BasePageReqEntity;
 import cn.com.oceansoft.sys.resource.dao.IResourceDao;
 import cn.com.oceansoft.sys.resource.model.ResourceInfo;
@@ -65,5 +66,10 @@ public class ResourceDaoImpl extends SqlSessionDaoSupport implements IResourceDa
     @Override
     public List<ResourceInfo> queryPage(BasePageReqEntity<ResourceInfo> param) {
         return this.getSqlSession().selectList("ResourceInfo.queryPage",param);
+    }
+
+    @Override
+    public List<ResourceInfo> queryAllRes() {
+        return this.getSqlSession().selectList("ResourceInfo.queryAllRes");
     }
 }

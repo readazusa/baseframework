@@ -1,5 +1,6 @@
 package cn.com.oceansoft.sys.resource.service.impl;
 
+import cn.com.oceansoft.base.common.Result;
 import cn.com.oceansoft.base.entity.BasePageReqEntity;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
@@ -85,5 +86,10 @@ public class ResourceServiceImpl implements IResourceService {
         basePageResultEntity.setRows(resourceInfoList);
         basePageResultEntity.setTotal(totalCount);
         return basePageResultEntity;
+    }
+
+    @Override
+    public List<ResourceInfo> queryAllRes() {
+        return resourceDao.queryAllRes();
     }
 }

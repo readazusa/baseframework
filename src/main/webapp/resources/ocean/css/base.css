@@ -83,8 +83,19 @@ body{
 .roleclass{
     display: flex;
     flex-direction: row;
+    flex-flow: wrap;
+    margin-top: 5px;
 }
 
 .roleclass .resdiv{
-    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    /*margin-left: 10px;*/
+    width: 100px;
+    padding-bottom: 10px;
+}
+
+.roleclass .resdiv label{
+    padding-right: 5px;
 }

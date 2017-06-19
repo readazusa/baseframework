@@ -32,4 +32,8 @@
         </if>
         limit #{limit} offset #{offset}
     </select>
+
+    <select id="queryAllRes" resultType="ResourceInfo">
+           select * from t_sys_resource
+    </select>
 </mapper>

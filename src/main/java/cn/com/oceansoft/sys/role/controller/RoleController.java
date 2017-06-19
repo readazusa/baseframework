@@ -2,6 +2,8 @@ package cn.com.oceansoft.sys.role.controller;
 
 import cn.com.oceansoft.base.common.Result;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
+import cn.com.oceansoft.sys.resource.model.ResourceInfo;
+import cn.com.oceansoft.sys.resource.service.IResourceService;
 import cn.com.oceansoft.sys.role.model.RoleInfo;
 import cn.com.oceansoft.sys.role.service.IRoleService;
 import org.apache.logging.log4j.LogManager;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by 念梓  on 2017/6/9.
@@ -29,6 +32,10 @@ public class RoleController {
     @Resource
     private IRoleService roleService;
 
+
+    @Resource
+    private IResourceService resourceService;
+
     @RequestMapping("index")
     public String index() {
         return "sys/role/index";
@@ -43,6 +50,8 @@ public class RoleController {
 
     @RequestMapping("newpage")
     public String newPage(ModelMap model) {
+        List<ResourceInfo> resourceInfoList =  resourceService.queryAllRes();
+        model.put("resources" ,resourceInfoList);
         return "sys/role/new";
     }
 
