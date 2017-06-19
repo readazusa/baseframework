@@ -8,10 +8,10 @@ import cn.com.oceansoft.sys.role.dao.IRoleDao;
 import cn.com.oceansoft.sys.role.model.RoleInfo;
 import cn.com.oceansoft.sys.role.service.IRoleService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by ty on 2017/6/11.
@@ -38,12 +38,25 @@ public class RoleServiceImpl implements IRoleService {
         return null;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void save(RoleInfo obj) {
         obj.setUid(IdWorkerUtils.instance.getId());
         obj.setCreateTime(new Date());
         obj.setUpdateTime(new Date());
         roleDao.save(obj);
+        Date now = new Date();
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        if (obj.getRes() != null && obj.getRes().size() > 0) {
+            for (String code : obj.getRes()) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("roleId", obj.getId());
+                map.put("resId", code);
+                map.put("createTime", now);
+                mapList.add(map);
+            }
+            roleDao.batchSaveRoleVsResource(mapList);
+        }
     }
 
     @Override
@@ -86,7 +99,6 @@ public class RoleServiceImpl implements IRoleService {
         basePageResultEntity.setRows(roleInfos);
         return basePageResultEntity;
     }
-
 
 
 }

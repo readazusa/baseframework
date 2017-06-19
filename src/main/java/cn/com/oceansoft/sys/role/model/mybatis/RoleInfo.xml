@@ -14,8 +14,8 @@
     <insert id="batchSaveRoleVsResource" >
         insert into  t_sys_role_resource(roleid,resid,createtime)
         VALUES
-        <foreach collection="list" item="roleResources" open="(" close=")" separator=",">
-            #{roleResources.roleId},#{roleResources.resId},#{roleResources.createTime}
+        <foreach collection="list" item="roleResources"  separator=",">
+            ( #{roleResources.roleId},#{roleResources.resId},#{roleResources.createTime})
         </foreach>
     </insert>
 

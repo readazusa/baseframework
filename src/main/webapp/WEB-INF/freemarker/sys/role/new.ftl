@@ -37,8 +37,8 @@
             <label class="col-sm-4 control-label">选择权限</label>
             <div class="col-sm-8 roleclass">
                 <#list resources as resource>
-                    <div class="resdiv"> <label for="s_${resource.code}">${resource.name}</label>
-                        <input type="checkbox" name="res" id="s_${resource.code}" value="${resource.code}">
+                    <div class="resdiv"> <label for="s_${resource.id}">${resource.name}</label>
+                        <input type="checkbox" name="res" id="s_${resource.id}" value="${resource.id}">
                     </div>
                 </#list>
             </div>

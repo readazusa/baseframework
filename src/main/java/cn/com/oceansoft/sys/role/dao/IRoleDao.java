@@ -18,6 +18,5 @@ public interface IRoleDao extends IDao<RoleInfo> {
     public void batchSaveRoleVsResource(List<Map<String,Object>> list);
 
 
-
     public void deleteRoleVsResourceByRoleId(int id);
 }
