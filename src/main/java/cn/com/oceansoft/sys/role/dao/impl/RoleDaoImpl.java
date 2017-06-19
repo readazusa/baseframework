@@ -77,4 +77,9 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements IRoleDao {
     public void deleteRoleVsResourceByRoleId(int id) {
 
     }
+
+    @Override
+    public List<RoleInfo> queryAllRole(){
+        return this.getSqlSession().selectList("RoleInfo.queryAllRole");
+    }
 }

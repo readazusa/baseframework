@@ -19,4 +19,8 @@ public interface IRoleDao extends IDao<RoleInfo> {
 
 
     public void deleteRoleVsResourceByRoleId(int id);
+
+
+
+    public List<RoleInfo> queryAllRole();
 }

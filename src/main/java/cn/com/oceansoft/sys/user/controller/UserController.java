@@ -3,6 +3,7 @@ package cn.com.oceansoft.sys.user.controller;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
 import cn.com.oceansoft.base.util.UuidUtils;
+import cn.com.oceansoft.sys.role.service.IRoleService;
 import cn.com.oceansoft.sys.user.model.ReqUserInfoEntity;
 import cn.com.oceansoft.sys.user.model.UserInfo;
 import cn.com.oceansoft.sys.user.service.IUserService;
@@ -34,6 +35,8 @@ public class UserController {
     @Resource
     private IUserService userService;
 
+    @Resource
+    private IRoleService roleService;
 
     @RequestMapping("index")
     public String index(){
@@ -53,6 +56,7 @@ public class UserController {
     public String newPage(String deptcode, String deptname, ModelMap model){
         model.put("deptcode",deptcode);
         model.put("deptname",deptname);
+        model.put("roles",roleService.getAllRole());
         return "sys/user/new";
     }
 
@@ -65,6 +69,7 @@ public class UserController {
     @RequestMapping("add")
     @ResponseBody
     public Object add(UserInfo userInfo){
+        log.debug("新增用户");
         return null;
     }
 

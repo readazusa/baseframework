@@ -46,5 +46,8 @@
         limit #{limit} offset #{offset}
     </select>
 
+    <select id="queryAllRole"  resultType="RoleInfo">
+        select * from t_sys_role
+    </select>
 
 </mapper>

@@ -4,6 +4,7 @@ import cn.com.oceansoft.base.entity.BaseInfo;
 import cn.com.oceansoft.base.util.DateFormatUtils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by 念梓  on 2017/6/8.
@@ -34,6 +35,10 @@ public class UserInfo extends BaseInfo{
     private String flag;  //状态 0：正常  1：禁用
 
     private String birthdayStr;
+
+
+    private List<Integer> roleIds;
+
 
     public String getUsername() {
             return  username;
@@ -121,5 +126,14 @@ public class UserInfo extends BaseInfo{
 
     public void setBirthdayStr(String birthdayStr) {
         this.birthdayStr = birthdayStr;
+    }
+
+
+    public List<Integer> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Integer> roleIds) {
+        this.roleIds = roleIds;
     }
 }

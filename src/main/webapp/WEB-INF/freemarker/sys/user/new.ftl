@@ -77,53 +77,38 @@
 
         <div class="form-group">
 
-            <div class="col-sm-4 col-sm-offset-1"  >
-                <label class="control-label" >全部角色：</label>
+            <div class="col-sm-4 col-sm-offset-1">
+                <label class="control-label">全部角色：</label>
                 <select class="selectpicker show-tick form-control" multiple
-                        data-live-search="false" style="height: 200px;">
-                    <option value="0">苹果</option>
-                    <option value="1">菠萝</option>
-                    <option value="2">香蕉</option>
-                    <option value="3">火龙果</option>
-                    <option value="4">梨子</option>
-                    <option value="5">草莓</option>
-                    <option value="6">哈密瓜</option>
-                    <option value="7">椰子</option>
-                    <option value="8">猕猴桃</option>
-                    <option value="9">桃子</option>
+                        data-live-search="false" style="height: 200px;" id="srcRole" ondblclick="doClickChoice(this)">
+                <#list roles as role>
+                    <option value="${role.id}" >${role.name}</option>
+                </#list>
                 </select>
             </div>
-            <div class="col-sm-1 col-sm-offset-1" style="height: 200px;">
+            <div class="col-sm-1 col-sm-offset-1" style="height: 200px; padding-top: 5px">
                 <div class="role-exec">
                     <div>
-                        <a>&gt; </a>
+                        <a class="btn cbtn" href="javascript:choiceOne()">&gt; </a>
                     </div>
                     <div>
-                        <a>&gt;&gt; </a>
+                        <a class="btn cbtn" href="javascript:choiceAll()">&gt;&gt; </a>
                     </div>
                     <div>
-                        <a>&lt; </a>
+                        <a class="btn cbtn" href="javascript:retChoiceOne()">&lt; </a>
                     </div>
                     <div>
-                        <a>&lt;&lt; </a>
+                        <a class="btn cbtn" href="javascript:retChoiceAll()">&lt;&lt; </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col-sm-4 col-sm-offset-1"  >
+            <div class="col-sm-4 col-sm-offset-1">
                 <label class="control-label">以选择角色：</label>
                 <select class="selectpicker show-tick form-control" multiple
-                        data-live-search="false" style="height: 200px;">
-                    <option value="0">苹果</option>
-                    <option value="1">菠萝</option>
-                    <option value="2">香蕉</option>
-                    <option value="3">火龙果</option>
-                    <option value="4">梨子</option>
-                    <option value="5">草莓</option>
-                    <option value="6">哈密瓜</option>
-                    <option value="7">椰子</option>
-                    <option value="8">猕猴桃</option>
-                    <option value="9">桃子</option>
+                        data-live-search="false" style="height: 200px;" id="targetRole" ondblclick="doClickRetChoice(this)" name="roleIds">
+
+
                 </select>
             </div>
         </div>
@@ -156,7 +141,7 @@
 
         $('input[type="checkbox"], input[type="radio"]').not('[data-switch-no-init]').bootstrapSwitch();
 
-        $('#deptForm').bootstrapValidator({
+        $('#userForm').bootstrapValidator({
             container: 'tooltip',
             message: 'This value is not valid',
             feedbackIcons: {
@@ -166,29 +151,15 @@
             },
             fields: {
                 name: {
-                    message: '部门名称不能为空',
+                    message: '姓名不能为空',
                     validators: {
                         notEmpty: {
-                            message: '部门名称不能为空'
+                            message: '姓名不能为空'
                         },
                         stringLength: {
                             min: 2,
                             max: 18,
                             message: '部门名称长度必须在6到18位之间'
-                        }
-                    }
-                },
-                phone: {
-                    validators: {
-                        notEmpty: {
-                            message: '部门电话不能为空'
-                        }
-                    }
-                },
-                address: {
-                    validators: {
-                        notEmpty: {
-                            message: "部门地址不能为空"
                         }
                     }
                 }
@@ -199,15 +170,16 @@
 
 
     function doSubmit() {
-        var bootstrapValidator = $("#deptForm").data('bootstrapValidator');
+        var bootstrapValidator = $("#userForm").data('bootstrapValidator');
         bootstrapValidator.validate();
+        setRoleChoice();
         if (bootstrapValidator.isValid()) {
-            $("#deptForm").ajaxSubmit({
-                url: "${base}/sys/dept/add.json",
+            $("#userForm").ajaxSubmit({
+                url: "${base}/sys/user/add.json",
                 type: 'post',
                 success: function (resp) {
                     if (resp.code = "0000") {
-                        layer.msg("新增部门成功", function () {
+                        layer.msg("新增用户成功", function () {
                             parent.refresh();
                         });
                     } else {
@@ -245,6 +217,69 @@
         $("#deptName").val(deptName);
         $("#deptCode").val(deptCode);
         layer.close(index);
+    }
+
+    function doClickChoice(){
+        var choice = $("#srcRole").find("option:selected")[0]
+        var option = "<option value='" + $(choice).val() + "' selected>" + $(choice).text() + "</option>"
+        $("#targetRole").append(option);
+        $(choice).remove();
+    }
+
+    function  doClickRetChoice(){
+        var choice = $("#targetRole").find("option:selected")[0]
+        var option = "<option value='" + $(choice).val() + "'>" + $(choice).text() + "</option>"
+        $("#srcRole").append(option);
+        $(choice).remove();
+    }
+
+
+    function choiceOne() {
+        var option = "";
+        $("#srcRole").find("option:selected").each(function (index) {
+            console.log($(this).val() + ", " + $(this).text());
+            option += "<option value='" + $(this).val() + "' selected>" + $(this).text() + "</option>"
+            $(this).remove();
+        })
+        $("#targetRole").append(option);
+    }
+
+    function choiceAll() {
+        var option = "";
+        $("#srcRole").find("option").each(function(index){
+            console.log($(this).val() + ", " + $(this).text());
+            option += "<option value='" + $(this).val() + "' selected>" + $(this).text() + "</option>"
+            $(this).remove();
+        });
+        $("#targetRole").append(option);
+    }
+
+
+    function retChoiceOne() {
+        var option = "";
+        $("#targetRole").find("option:selected").each(function (index) {
+            console.log($(this).val() + ", " + $(this).text());
+            option += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>"
+            $(this).remove();
+        })
+        $("#srcRole").append(option);
+    }
+
+    function retChoiceAll() {
+        var option = "";
+        $("#targetRole").find("option").each(function(index){
+
+            option += "<option value='" + $(this).val() + "'>" + $(this).text() + "</option>"
+            $(this).remove();
+        });
+        $("#srcRole").append(option);
+    }
+
+
+    function  setRoleChoice(){
+        $("#targetRole").find("option").each(function(index){
+            $(this).attr("selected",true);
+        });
     }
 
 </script>

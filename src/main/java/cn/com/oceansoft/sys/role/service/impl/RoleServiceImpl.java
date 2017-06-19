@@ -101,4 +101,8 @@ public class RoleServiceImpl implements IRoleService {
     }
 
 
+    @Override
+    public List<RoleInfo> getAllRole() {
+        return roleDao.queryAllRole();
+    }
 }

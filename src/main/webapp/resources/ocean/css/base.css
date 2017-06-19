@@ -79,7 +79,9 @@ body{
     flex-direction: column;
     margin-top: 30px;
 }
-
+.role-exec div{
+    padding-top: 10px;
+}
 .roleclass{
     display: flex;
     flex-direction: row;
@@ -98,4 +100,11 @@ body{
 
 .roleclass .resdiv label{
     padding-right: 5px;
+}
+
+.cbtn{
+    background-color: #66CCFF;
+    color: black;
+    padding-top: 5px;
+    width: 42px;
 }
