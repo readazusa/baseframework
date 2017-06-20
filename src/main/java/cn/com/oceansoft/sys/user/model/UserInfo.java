@@ -37,7 +37,7 @@ public class UserInfo extends BaseInfo{
     private String birthdayStr;
 
 
-    private List<Integer> roleIds;
+    private String roleIds;
 
 
     public String getUsername() {
@@ -129,11 +129,11 @@ public class UserInfo extends BaseInfo{
     }
 
 
-    public List<Integer> getRoleIds() {
+    public String getRoleIds() {
         return roleIds;
     }
 
-    public void setRoleIds(List<Integer> roleIds) {
+    public void setRoleIds(String roleIds) {
         this.roleIds = roleIds;
     }
 }

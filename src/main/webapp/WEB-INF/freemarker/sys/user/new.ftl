@@ -106,11 +106,14 @@
             <div class="col-sm-4 col-sm-offset-1">
                 <label class="control-label">以选择角色：</label>
                 <select class="selectpicker show-tick form-control" multiple
-                        data-live-search="false" style="height: 200px;" id="targetRole" ondblclick="doClickRetChoice(this)" name="roleIds">
+                        data-live-search="false" style="height: 200px;" id="targetRole" ondblclick="doClickRetChoice(this)"  >
 
 
                 </select>
             </div>
+
+
+            <input id="roleIds" name="roleIds" type="hidden">
         </div>
 
     </form>
@@ -248,7 +251,7 @@
         var option = "";
         $("#srcRole").find("option").each(function(index){
             console.log($(this).val() + ", " + $(this).text());
-            option += "<option value='" + $(this).val() + "' selected>" + $(this).text() + "</option>"
+            option += "<option value='" + $(this).val() + "' selected >" + $(this).text() + "</option>"
             $(this).remove();
         });
         $("#targetRole").append(option);
@@ -277,9 +280,11 @@
 
 
     function  setRoleChoice(){
+        var roleIds="";
         $("#targetRole").find("option").each(function(index){
-            $(this).attr("selected",true);
+            roleIds +=$(this).val()+","
         });
+        $("#roleIds").val(roleIds);
     }
 
 </script>
