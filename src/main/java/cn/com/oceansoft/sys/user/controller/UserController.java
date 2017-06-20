@@ -1,5 +1,6 @@
 package cn.com.oceansoft.sys.user.controller;
 
+import cn.com.oceansoft.base.common.Result;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
 import cn.com.oceansoft.base.util.UuidUtils;
@@ -70,7 +71,15 @@ public class UserController {
     @ResponseBody
     public Object add(UserInfo userInfo){
         log.debug("新增用户");
-        return null;
+        Result result = new Result();
+        try{
+            userService.save(userInfo);
+        }catch (Exception ex){
+            log.error("保存用户信息失败: ",ex);
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
+        }
+        return result;
     }
 
     @RequestMapping("update")

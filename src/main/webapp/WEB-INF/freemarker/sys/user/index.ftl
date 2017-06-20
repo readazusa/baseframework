@@ -95,16 +95,10 @@
                     title: '联系电话'
                 }, {
                     field: 'sex',
-                    title: '性别',
-                    formatter: function (value, row, index) {
-                        var result = null;
-                        if (value == 'male') {
-                            result = "男";
-                        } else {
-                            result = "女";
-                        }
-                        return result;
-                    }
+                    title: '性别'
+                }, {
+                    field: 'deptName',
+                    title: '所属部门'
                 }, {
                     field: "position",
                     title: "职位"
@@ -164,11 +158,11 @@
             var name = node.text;
             $("#deptCode").val(id)
             $("#deptName").val(name);
-            reload();
+            refresh();
         });
     });
 
-    function reload() {
+    function refresh() {
         $table.bootstrapTable("refresh")
     }
 

@@ -2,6 +2,7 @@ package cn.com.oceansoft.sys.user.model;
 
 import cn.com.oceansoft.base.entity.BaseInfo;
 import cn.com.oceansoft.base.util.DateFormatUtils;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
@@ -18,9 +19,10 @@ public class UserInfo extends BaseInfo{
 
     private String password;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthday;
 
-    private String sex;  //男:male,女:female
+    private String sex="女";  //
 
     private String deptCode;
 
@@ -28,11 +30,11 @@ public class UserInfo extends BaseInfo{
 
     private String mobile;
 
-    private String phome;  //办公室电话号码
+    private String phone;  //办公室电话号码
 
     private String position;  //职位
 
-    private String flag;  //状态 0：正常  1：禁用
+    private String flag="0";  //状态 0：正常  1：禁用
 
     private String birthdayStr;
 
@@ -96,12 +98,12 @@ public class UserInfo extends BaseInfo{
         this.mobile = mobile;
     }
 
-    public String getPhome() {
-        return phome;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setPhome(String phome) {
-        this.phome = phome;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getPosition() {

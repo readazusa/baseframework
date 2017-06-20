@@ -41,7 +41,7 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements IUserDao {
 
     @Override
     public void save(UserInfo obj) {
-
+        this.getSqlSession().insert("UserInfo.save", obj);
     }
 
     @Override
@@ -61,18 +61,18 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements IUserDao {
 
     @Override
     public int getTotalCount(UserInfo userInfo) {
-        return this.getSqlSession().selectOne("UserInfo.getTotalCount",userInfo);
+        return this.getSqlSession().selectOne("UserInfo.getTotalCount", userInfo);
     }
 
     @Override
     public List<UserInfo> queryPage(BasePageReqEntity<UserInfo> param) {
-        return this.getSqlSession().selectOne("UserInfo.queryPage",param);
+        return this.getSqlSession().selectList("UserInfo.queryPage", param);
     }
 
 
     @Override
     public void batchSaveUserVsRole(List<Map<String, Object>> list) {
-
+        this.getSqlSession().insert("UserInfo.batchSaveUserVsRole", list);
     }
 
 

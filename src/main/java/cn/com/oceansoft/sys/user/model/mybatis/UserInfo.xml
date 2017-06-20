@@ -4,7 +4,6 @@
 
 <mapper namespace="UserInfo">
 
-
     <insert id="save" parameterType="UserInfo" keyProperty="id" useGeneratedKeys="true">
       insert into t_sys_user(uid,name,username,password,birthday,sex,deptcode,deptname,mobile,phone,position,flag,createtime,updatetime,syscreatetime)
       VALUES (#{uid},#{name},#{username},#{password},#{birthday},#{sex},#{deptCode},#{deptName},#{mobile},#{phone},#{position},#{flag},#{createTime},#{updateTime},now())
@@ -21,8 +20,8 @@
 
         insert into t_sys_user_role(userid,roleid,createtime)
         VALUES
-        <foreach collection="list" item="userVsRole" separator="," open="(" close=")" >
-            #{userVsRole.userId},#{userVsRole.roleId},#{userVsRole.createTime}
+        <foreach collection="list" item="userVsRole" separator="," >
+            (#{userVsRole.userId},#{userVsRole.roleId},#{userVsRole.createTime})
         </foreach>
     </insert>
 
@@ -47,7 +46,7 @@
 
         select * from t_sys_user where 1=1
         <if test="obj.deptCode != null and obj.deptCode !=''">
-            and deptcode = #{obj.deptCode}
+            and deptcode like '${obj.deptCode}%'
         </if>
         limit #{limit} offset #{offset}
     </select>

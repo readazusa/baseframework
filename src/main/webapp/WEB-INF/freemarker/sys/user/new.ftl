@@ -7,10 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>部门管理</title>
+<@config.layerCSS></@config.layerCSS>
 <@config.bootCSS></@config.bootCSS>
 <@config.bootSwitchCSS></@config.bootSwitchCSS>
 <@config.bootValidatorCSS></@config.bootValidatorCSS>
-<@config.layerCSS></@config.layerCSS>
 <@config.bootSwitchCSS></@config.bootSwitchCSS>
 <@config.baseCSS></@config.baseCSS>
 
@@ -28,7 +28,7 @@
             <label for="inputEmail3" class="col-sm-2 control-label">性别</label>
             <div class="col-sm-4">
                 <input id="switch-onText" type="checkbox" checked="checked" data-on-text="男" data-off-text="女"
-                       value="男">
+                       value="男" name="sex">
             </div>
         </div>
 
@@ -40,7 +40,7 @@
 
             <label for="inputEmail3" class="col-sm-2 control-label">密码</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="请输入密码" name="password">
+                <input type="password" class="form-control" placeholder="请输入密码" name="password">
             </div>
         </div>
         <div class="form-group">
@@ -69,9 +69,13 @@
         </div>
 
         <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">出生日期</label>
+            <div class="col-sm-4">
+                <input id="birthday" type="text"  name="birthday" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="点击选择出生日期" class="form-control" >
+            </div>
             <label for="inputEmail3" class="col-sm-2 control-label">是否禁用</label>
             <div class="col-sm-4">
-                <input id="switch-onText" type="checkbox" checked="checked" value="0">
+                <input id="switch-onText" type="checkbox"  value="1"  name="flag"  data-on-text="YES" data-off-text="NO">
             </div>
         </div>
 
@@ -136,8 +140,11 @@
 <@config.bootSwitchJS></@config.bootSwitchJS>
 <@config.layerJS></@config.layerJS>
 <script type="application/javascript">
-    layui.use(['layer'], function () {
-        layer = layui.layer
+    layui.use(['layer', 'laydate'], function () {
+        layer = layui.layer;
+        var laydate = layui.laydate;
+
+
     });
     var index = 0;
     $(function () {
