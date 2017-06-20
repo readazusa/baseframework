@@ -92,6 +92,9 @@ public class UserController {
     @RequestMapping("delete")
     @ResponseBody
     public Object delete(int id){
+        Result result = new Result();
+
+
         return null;
     }
 

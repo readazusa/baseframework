@@ -79,7 +79,7 @@
             showPaginationSwitch: true,
             toolbar: '#toolbar',
             clickToSelect: false,
-            detailView: true,
+//            detailView: true,
             idField: "id",
             showColumns: true,
             columns: [
@@ -119,9 +119,9 @@
             onLoadSuccess: function (data) {
                 console.log("data: " + JSON.stringify(data));
             },
-            detailFormatter: function () {
-                return "123123123";
-            },
+//            detailFormatter: function () {
+//                return "123123123";
+//            },
             queryParams: function (param) {
                 console.info("请求的数据: " + JSON.stringify(param));
                 return {"deptCode": $("#deptCode").val(), "offset": param.offset, "limit": param.limit};
@@ -164,6 +164,7 @@
 
     function refresh() {
         $table.bootstrapTable("refresh")
+        layer.close(index);
     }
 
     function addUser() {
@@ -182,5 +183,5 @@
 </script>
 
 <@baseExec.editJS url=""></@baseExec.editJS>
-<@baseExec.deleteJS url=""></@baseExec.deleteJS>
+<@baseExec.deleteJS url="${base}/sys/user/delete/json"></@baseExec.deleteJS>
 </body>

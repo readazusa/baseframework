@@ -55,7 +55,7 @@
     <select id="getTotalCount" parameterType="UserInfo" resultType="java.lang.Integer">
         select count(1) from t_sys_user where 1=1
          <if test="deptCode != '' and deptCode !=null">
-            and deptcode = ${deptCode}
+             and deptcode like '${deptCode}%'
          </if>
     </select>
 
