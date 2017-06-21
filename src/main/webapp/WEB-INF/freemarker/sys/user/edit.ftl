@@ -23,59 +23,59 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">姓名</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="请输入姓名" name="name">
+                <input type="text" class="form-control" placeholder="请输入姓名" name="name" value="${user.name!""}">
             </div>
             <label for="inputEmail3" class="col-sm-2 control-label">性别</label>
             <div class="col-sm-4">
-                <input id="switch-onText" type="checkbox" checked="checked" data-on-text="男" data-off-text="女"
-                       value="男" name="sex">
+                <input id="switch-onText" type="checkbox" <#if user.sex=='男'>checked="checked"</#if> data-on-text="男" data-off-text="女"
+                       value="${user.sex}" name="sex">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">用户名</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="请输入用户名" name="username">
+                <input type="text" class="form-control" placeholder="请输入用户名" name="username" value="${user.username}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">密码</label>
             <div class="col-sm-4">
-                <input type="password" class="form-control" placeholder="请输入密码" name="password">
+                <input type="password" class="form-control" placeholder="请输入密码" name="password" value="${user.password}">
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">手机号码</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="请输入手机号码" name="mobile">
+                <input type="text" class="form-control" placeholder="请输入手机号码" name="mobile" value="${user.mobile!""}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">办公室号码</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" placeholder="请输入办公室号码" name="phone">
+                <input type="text" class="form-control" placeholder="请输入办公室号码" name="phone" value="${user.phone!""}">
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">部门名称</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" value="${user.deptname!""}"
+                <input type="text" class="form-control" value="${user.deptName!""}"
                        readonly="readonly" name="deptName" id="deptName" onclick="doChoiceDept();">
                 <input type="hidden" id="deptCode" name="deptCode" value="${user.deptCode!""}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">职位</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入职位" name="position">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入职位" name="position" value="${user.position!""}">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">出生日期</label>
             <div class="col-sm-4">
-                <input id="birthday" type="text"  name="birthday" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="点击选择出生日期" class="form-control" >
+                <input id="birthday" type="text"  name="birthday" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" placeholder="点击选择出生日期" class="form-control" value="${user.birthday?string('yyyy-MM-dd HH:mm:ss')}" >
             </div>
             <label for="inputEmail3" class="col-sm-2 control-label">是否禁用</label>
             <div class="col-sm-4">
-                <input id="switch-onText" type="checkbox"  value="1"  name="flag"  data-on-text="YES" data-off-text="NO">
+                <input id="switch-onText" type="checkbox"  value="${user.flag}"  name="flag"  data-on-text="YES" data-off-text="NO"  <#if user.flag=='0'>checked="checked"</#if>   >
             </div>
         </div>
 
@@ -120,6 +120,8 @@
 
 
             <input id="roleIds" name="roleIds" type="hidden">
+
+            <input name="id" value="${user.id}" type="hidden">
         </div>
 
     </form>
@@ -187,7 +189,7 @@
         setRoleChoice();
         if (bootstrapValidator.isValid()) {
             $("#userForm").ajaxSubmit({
-                url: "${base}/sys/user/add.json",
+                url: "${base}/sys/user/update.json",
                 type: 'post',
                 success: function (resp) {
                     if (resp.code = "0000") {

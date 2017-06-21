@@ -90,7 +90,15 @@ public class UserController {
     @RequestMapping("update")
     @ResponseBody
     public Object update(UserInfo userInfo){
-        return null;
+        Result result = new Result();
+        try{
+            userService.update(userInfo);
+        }catch (Exception ex){
+            log.error("更新用户信息失败: ",ex);
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
+        }
+        return result;
     }
 
 

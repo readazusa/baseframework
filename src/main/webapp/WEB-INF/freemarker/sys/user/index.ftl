@@ -106,6 +106,9 @@
                     field: "birthdayStr",
                     title: "生日"
                 }, {
+                    field: "updateTimeStr",
+                    title: "更新时间"
+                },{
                     field: 'id',
                     title: '操作',
                     formatter: function (value, row, index) {

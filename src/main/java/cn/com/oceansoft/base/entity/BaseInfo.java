@@ -1,5 +1,7 @@
 package cn.com.oceansoft.base.entity;
 
+import cn.com.oceansoft.base.util.DateFormatUtils;
+
 import java.util.Date;
 
 /**
@@ -24,6 +26,8 @@ public class BaseInfo {
 
     private Date sysUpdateTime;
 
+
+    private String updateTimeStr;
 
     public int getId() {
         return id;
@@ -79,5 +83,14 @@ public class BaseInfo {
 
     public void setSysUpdateTime(Date sysUpdateTime) {
         this.sysUpdateTime = sysUpdateTime;
+    }
+
+
+    public String getUpdateTimeStr() {
+        return DateFormatUtils.getFormatDate(this.getUpdateTime(),"yyyy-MM-dd HH:mm:ss");
+    }
+
+    public void setUpdateTimeStr(String updateTimeStr) {
+        this.updateTimeStr = updateTimeStr;
     }
 }
