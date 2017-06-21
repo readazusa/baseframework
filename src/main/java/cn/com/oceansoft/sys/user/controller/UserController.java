@@ -63,7 +63,12 @@ public class UserController {
 
 
     @RequestMapping("editpage")
-    public String editPage(int id){
+    public String editPage(int id,ModelMap model){
+        UserInfo userInfo = userService.queryObjectById(id);
+        Map<String,Object> qfMap = userService.loadRoleAndHasRoleInfos(id);
+        model.put("user",userInfo);
+        model.put("syRoleInfo",qfMap.get("syRoleInfo"));
+        model.put("hasRoleInfo",qfMap.get("hasRoleInfo"));
         return "sys/user/edit";
     }
 
@@ -93,9 +98,14 @@ public class UserController {
     @ResponseBody
     public Object delete(int id){
         Result result = new Result();
-
-
-        return null;
+        try{
+            userService.deleteById(id);
+        }catch (Exception ex){
+            log.error("删除用户信息失败: ",ex);
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
+        }
+        return result;
     }
 
 

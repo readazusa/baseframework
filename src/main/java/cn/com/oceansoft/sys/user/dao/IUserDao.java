@@ -15,4 +15,11 @@ public interface IUserDao extends IDao<UserInfo> {
 
 
     public void deleteUserVsRoleByUserId(int userId);
+
+    /**
+     * 获取用户关联的角色id
+     * @param userId
+     * @return
+     */
+    public List<Integer> queryUserVsRoleIdByUserId(int userId);
 }

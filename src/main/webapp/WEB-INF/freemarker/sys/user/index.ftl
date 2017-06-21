@@ -109,7 +109,7 @@
                     field: 'id',
                     title: '操作',
                     formatter: function (value, row, index) {
-                        return '<button class="btn btn-primary btn-info" >编辑</button>&nbsp;<button class="btn btn-primary btn-warning">查看</button>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove(' + value + ');">删除</a>';
+                        return '<a class="btn btn-primary btn-info" href="javascript:edit(' + value + ');" >编辑</a>&nbsp;<button class="btn btn-primary btn-warning" href="javascript:view(' + value + ');"> 查看</button>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove(' + value + ');">删除</a>';
                     }
                 }
             ],
@@ -182,6 +182,7 @@
 
 </script>
 
-<@baseExec.editJS url=""></@baseExec.editJS>
-<@baseExec.deleteJS url="${base}/sys/user/delete/json"></@baseExec.deleteJS>
+<@baseExec.editJS url="${base}/sys/user/editpage.htm"></@baseExec.editJS>
+<@baseExec.deleteJS url="${base}/sys/user/delete.json"></@baseExec.deleteJS>
+<@baseExec.viewJS url="${base}/sys/user/view.htm"></@baseExec.viewJS>
 </body>

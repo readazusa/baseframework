@@ -5,8 +5,8 @@
             type: 2,
             title: "${title}",
             shadeClose: true,
-//            shade: 0.8,
-//            shift: 2,
+            shade: 0.8,
+            shift: 2,
             maxmin: true,
             area: ['${width}', '${height}'],
             content: "${url}"
@@ -22,8 +22,8 @@
             type: 2,
             title: "${title}",
             shadeClose: true,
-//            shade: 0.8,
-//            shift: 2,
+            shade: 0.8,
+            shift: 2,
             maxmin: true,
             area: ['${width}', '${height}'],
             content: "${url}?parentcode="+parentCode
@@ -61,6 +61,7 @@
 
 <#macro editJS url title="" width="50%" height="70%">
 <script type="application/javascript">
+
     function edit(id) {
         index = layer.open({
             type: 2,
@@ -68,6 +69,23 @@
             shadeClose: true,
             shade: 0.8,
             shift: 2,
+            maxmin: true,
+            area: ['${width}', '${height}'],
+            content: "${url}?id=" + id
+        });
+    }
+</script>
+</#macro>
+
+<#macro viewJS url title="" width="50%" height="70%">
+<script type="application/javascript">
+    function view(id) {
+        index = layer.open({
+            type: 2,
+            title: "${title}",
+            shadeClose: true,
+//            shade: 0.8,
+//            shift: 2,
             maxmin: true,
             area: ['${width}', '${height}'],
             content: "${url}?id=" + id

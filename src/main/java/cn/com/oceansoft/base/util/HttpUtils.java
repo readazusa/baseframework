@@ -21,15 +21,14 @@ import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
 import org.apache.http.impl.nio.client.HttpAsyncClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.nio.entity.NFileEntity;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.net.URLEncoder;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -150,7 +149,7 @@ public final class HttpUtils {
     public String postFormFile(String url, Map<String, File> params, String fileSuffixName) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
-        httpPost.addHeader("suffix",fileSuffixName);
+        httpPost.addHeader("suffix", fileSuffixName);
         StringBuffer sb = new StringBuffer();
         if (params != null && params.size() > 0) {  //当有查询条件的时候
             MultipartEntity multipartEntity = new MultipartEntity();
@@ -168,13 +167,13 @@ public final class HttpUtils {
     public String postFormInputstream(String url, Map<String, InputStream> params, String fileSuffixName) {
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
-        httpPost.addHeader("suffix",fileSuffixName);
+        httpPost.addHeader("suffix", fileSuffixName);
         StringBuffer sb = new StringBuffer();
         if (params != null && params.size() > 0) {  //当有查询条件的时候
             MultipartEntity multipartEntity = new MultipartEntity();
             for (String key : params.keySet()) {
                 InputStream inputStream = params.get(key);
-                InputStreamBody inputStreamBody = new InputStreamBody(inputStream,key);
+                InputStreamBody inputStreamBody = new InputStreamBody(inputStream, key);
 //                log.debug("文件名称:{},文件长度:{},文件类型:{}", fileBody.getFilename(), fileBody.getContentLength(), fileBody.getContentType());
                 multipartEntity.addPart(key, inputStreamBody);
             }
@@ -182,7 +181,6 @@ public final class HttpUtils {
         }
         return loadResult(httpclient, httpPost);
     }
-
 
 
     private String loadResult(CloseableHttpClient httpclient, HttpPost httpPost) {
@@ -238,6 +236,57 @@ public final class HttpUtils {
     }
 
 
+    public String get(String head,String url) {
+
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+
+        List<NameValuePair> pairs = new ArrayList<NameValuePair>(10);
+
+        pairs.add(new BasicNameValuePair("period","{R:{D:'-1'}}"));
+
+        pairs.add(new BasicNameValuePair("space","{s:574060}"));
+
+        pairs.add(new BasicNameValuePair("columns","{d_geo_city,m_app_newvisitors}"));
+
+        pairs.add(new BasicNameValuePair("sort","{-m_app_newvisitors}"));
+
+        pairs.add(new BasicNameValuePair("page-num","1"));
+
+        pairs.add(new BasicNameValuePair("max-results","50"));
+
+
+
+        StringBuffer sb = new StringBuffer();
+        try {
+            String newUrl  = url +"?"+EntityUtils.toString(new UrlEncodedFormEntity(pairs));
+            HttpGet httpGet = new HttpGet(newUrl);
+            httpGet.addHeader("Authorization","Basic Z2VuZV9odWppbkBjYXJyZWZvdXIuY29tOjFxYXpAV1NY");
+            CloseableHttpResponse closeableHttpResponse = httpclient.execute(httpGet);
+            InputStream inputStream = closeableHttpResponse.getEntity().getContent();
+            Reader reader = new InputStreamReader(inputStream);
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            String str = null;
+            while ((str = bufferedReader.readLine()) != null) {
+                sb.append(str);
+            }
+            log.info("下载的文件内容: {}", sb.toString());
+
+        } catch (IOException e) {
+            log.error("获取地址：{}失败，错误信息如下：{}", url, e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                httpclient.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return sb.toString();
+    }
+
+
+
     /**
      * 参数为json
      *
@@ -262,6 +311,22 @@ public final class HttpUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static void main(String[] args) {
+        /**
+         * gene_hujin@carrefour.com
+         1qaz@WSX
+
+         */
+        String up = "gene_hujin@carrefour.com:1qaz@WSX";
+        String str = Base64.getEncoder().encodeToString(up.getBytes());
+
+        System.out.println(str);
+
+
+       HttpUtils.getInstance().get("mm",  "https://apirest.atinternet-solutions.com/data/v2/json/getData" );
     }
 
 }

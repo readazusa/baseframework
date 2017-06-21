@@ -57,9 +57,9 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">部门名称</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" value="${deptname}"
+                <input type="text" class="form-control" value="${user.deptname!""}"
                        readonly="readonly" name="deptName" id="deptName" onclick="doChoiceDept();">
-                <input type="hidden" id="deptCode" name="deptCode">
+                <input type="hidden" id="deptCode" name="deptCode" value="${user.deptCode!""}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">职位</label>
@@ -85,7 +85,7 @@
                 <label class="control-label">全部角色：</label>
                 <select class="selectpicker show-tick form-control" multiple
                         data-live-search="false" style="height: 200px;" id="srcRole" ondblclick="doClickChoice(this)">
-                <#list roles as role>
+                <#list syRoleInfo as role>
                     <option value="${role.id}" >${role.name}</option>
                 </#list>
                 </select>
@@ -112,7 +112,9 @@
                 <select class="selectpicker show-tick form-control" multiple
                         data-live-search="false" style="height: 200px;" id="targetRole" ondblclick="doClickRetChoice(this)"  >
 
-
+                    <#list hasRoleInfo as role>
+                        <option value="${role.id}" >${role.name}</option>
+                    </#list>
                 </select>
             </div>
 

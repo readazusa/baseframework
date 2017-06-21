@@ -8,6 +8,7 @@ import cn.com.oceansoft.sys.user.model.UserInfo;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ty on 2017/6/11.
@@ -15,5 +16,15 @@ import java.util.List;
 public interface IUserService extends IService<UserInfo> {
 
     public BasePageResultEntity queryPage(ReqUserInfoEntity reqUserInfoEntity);
+
+
+    /**
+     * 获取已经获取的角色 和 剩余的角色信息
+     * @param userId
+     * @return
+     */
+    public Map<String,Object> loadRoleAndHasRoleInfos(int userId);
+
+
 
 }

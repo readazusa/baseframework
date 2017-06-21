@@ -31,7 +31,7 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements IUserDao {
 
     @Override
     public UserInfo queryObjectById(int id) {
-        return null;
+        return this.getSqlSession().selectOne("UserInfo.queryObjectById",id);
     }
 
     @Override
@@ -51,12 +51,12 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements IUserDao {
 
     @Override
     public void deleteById(int uid) {
-
+        this.getSqlSession().delete("UserInfo.deleteById",uid);
     }
 
     @Override
     public void update(UserInfo userInfo) {
-
+        this.getSqlSession().update("UserInfo.update",userInfo);
     }
 
     @Override
@@ -78,6 +78,12 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements IUserDao {
 
     @Override
     public void deleteUserVsRoleByUserId(int userId) {
+        this.getSqlSession().delete("UserInfo.deleteUserVsRoleByUserId",userId);
+    }
 
+
+    @Override
+    public List<Integer> queryUserVsRoleIdByUserId(int userId) {
+        return this.getSqlSession().selectList("UserInfo.queryUserVsRoleIdByUserId",userId);
     }
 }
