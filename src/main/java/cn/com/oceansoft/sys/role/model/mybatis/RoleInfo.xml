@@ -50,4 +50,9 @@
         select * from t_sys_role
     </select>
 
+    <select id="queryResourceIdsByRoleId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select resid from t_sys_role_resource where roleid = #{id}
+    </select>
+
+
 </mapper>

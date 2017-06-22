@@ -4,6 +4,8 @@ import cn.com.oceansoft.base.entity.BasePageReqEntity;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.base.entity.BaseReqEntity;
 import cn.com.oceansoft.base.util.IdWorkerUtils;
+import cn.com.oceansoft.sys.resource.dao.IResourceDao;
+import cn.com.oceansoft.sys.resource.model.ResourceInfo;
 import cn.com.oceansoft.sys.role.dao.IRoleDao;
 import cn.com.oceansoft.sys.role.model.RoleInfo;
 import cn.com.oceansoft.sys.role.service.IRoleService;
@@ -23,6 +25,10 @@ public class RoleServiceImpl implements IRoleService {
     @Resource
     private IRoleDao roleDao;
 
+    @Resource
+    private IResourceDao resourceDao;
+
+
     @Override
     public RoleInfo queryObjectById(String id) {
         return null;
@@ -30,7 +36,7 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public RoleInfo queryObjectById(int id) {
-        return null;
+        return roleDao.queryObjectById(id);
     }
 
     @Override
@@ -45,33 +51,48 @@ public class RoleServiceImpl implements IRoleService {
         obj.setCreateTime(new Date());
         obj.setUpdateTime(new Date());
         roleDao.save(obj);
+
+        List<Map<String, Object>> mapList =laodRoleResList(obj.getId(),obj.getRes());
+
+        roleDao.batchSaveRoleVsResource(mapList);
+    }
+
+    private List<Map<String,Object>> laodRoleResList(int roleId,List<String> resIds){
         Date now = new Date();
         List<Map<String, Object>> mapList = new ArrayList<>();
-        if (obj.getRes() != null && obj.getRes().size() > 0) {
-            for (String code : obj.getRes()) {
+        if (resIds != null && resIds.size() > 0) {
+            for (String code : resIds) {
                 Map<String, Object> map = new HashMap<>();
-                map.put("roleId", obj.getId());
+                map.put("roleId",roleId);
                 map.put("resId", code);
                 map.put("createTime", now);
                 mapList.add(map);
             }
-            roleDao.batchSaveRoleVsResource(mapList);
         }
+        return mapList;
     }
+
+
 
     @Override
     public void deleteById(String uid) {
 
     }
 
+    @Transactional
     @Override
     public void deleteById(int uid) {
         roleDao.deleteById(uid);
+        roleDao.deleteRoleVsResourceByRoleId(uid);
     }
 
     @Override
     public void update(RoleInfo roleInfo) {
+        roleInfo.setUpdateTime(new Date());
         roleDao.update(roleInfo);
+        roleDao.deleteRoleVsResourceByRoleId(roleInfo.getId());
+        List<Map<String, Object>> mapList =laodRoleResList(roleInfo.getId(),roleInfo.getRes());
+        roleDao.batchSaveRoleVsResource(mapList);
     }
 
     @Override
@@ -104,5 +125,19 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public List<RoleInfo> getAllRole() {
         return roleDao.queryAllRole();
+    }
+
+    @Override
+    public List<ResourceInfo> queryCheckAndAllResourceInfos(int roleId) {
+        List<ResourceInfo> resourceInfoList = resourceDao.queryAllRes();
+        List<Integer> hasResourceIds = roleDao.queryResourceIdsByRoleId(roleId);
+
+
+        for(ResourceInfo resourceInfo : resourceInfoList){
+            if(hasResourceIds.contains(resourceInfo.getId())){
+                resourceInfo.setChecked(true);
+            }
+        }
+        return resourceInfoList;
     }
 }

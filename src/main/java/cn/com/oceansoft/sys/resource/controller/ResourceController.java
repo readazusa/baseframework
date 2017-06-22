@@ -8,6 +8,7 @@ import cn.com.oceansoft.sys.resource.service.IResourceService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -62,14 +63,25 @@ public class ResourceController {
 
 
     @RequestMapping("edit")
-    public String edit(int id){
+    public String edit(int id, ModelMap model){
+        ResourceInfo resourceInfo = resourceService.queryObjectById(id);
+        model.put("resource",resourceInfo);
+
         return "sys/resource/edit";
     }
 
     @RequestMapping("update")
     @ResponseBody
-    public Object update(){
-        return null;
+    public Object update(ResourceInfo resourceInfo){
+        Result result = new Result();
+        try{
+            resourceService.update(resourceInfo);
+        }catch (Exception ex){
+            log.error("更新权限失败: {}",ex);
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
+        }
+        return result;
     }
 
     @RequestMapping("view")
@@ -80,7 +92,15 @@ public class ResourceController {
     @RequestMapping("delete")
     @ResponseBody
     public Object detete(int id){
-        return null;
+        Result result = new Result();
+        try{
+            resourceService.deleteById(id);
+        }catch (Exception ex){
+            log.error("删除权限信息错误: ",ex);
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
+        }
+        return result;
     }
 
 

@@ -50,8 +50,9 @@ public class RoleController {
 
     @RequestMapping("newpage")
     public String newPage(ModelMap model) {
-        List<ResourceInfo> resourceInfoList =  resourceService.queryAllRes();
-        model.put("resources" ,resourceInfoList);
+        List<ResourceInfo> resourceInfoList = resourceService.queryAllRes();
+        model.put("resources", resourceInfoList);
+
         return "sys/role/new";
     }
 
@@ -71,10 +72,14 @@ public class RoleController {
 
     @RequestMapping("edit")
     public String edit(int id, ModelMap model) {
+        RoleInfo roleInfo = roleService.queryObjectById(id);
+        model.put("role", roleInfo);
+        model.put("resources", roleService.queryCheckAndAllResourceInfos(id));
         return "sys/role/edit";
     }
 
-
+    @RequestMapping("update")
+    @ResponseBody
     public Object update(RoleInfo roleInfo) {
         Result result = new Result();
         try {

@@ -12,6 +12,10 @@ public class ResourceInfo extends BaseInfo{
 
     private String code;
 
+
+    private boolean checked;   //权限是否选择
+
+
     public String getCode() {
         return code;
     }
@@ -21,5 +25,11 @@ public class ResourceInfo extends BaseInfo{
     }
 
 
+    public boolean isChecked() {
+        return checked;
+    }
 
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
 }

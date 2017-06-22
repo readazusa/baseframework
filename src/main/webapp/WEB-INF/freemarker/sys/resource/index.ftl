@@ -78,10 +78,13 @@
                     field: 'code',
                     title: '权限编码'
                 }, {
+                    field: 'updateTimeStr',
+                    title: '修改时间'
+                },{
                     field: 'id',
                     title: '操作',
                     formatter: function (value, row, index) {
-                        return '<button class="btn btn-primary btn-info" >编辑</button>&nbsp;<button class="btn btn-primary btn-warning">查看</button>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove(' + value + ');">删除</a>';
+                        return '<a class="btn btn-primary btn-info" href="javascript:edit(' + value + ');">编辑</a>&nbsp;<a class="btn btn-primary btn-warning" href="javascript:view(' + value + ');">查看</a>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove(' + value + ');">删除</a>';
                     }
                 }
             ],

@@ -30,7 +30,7 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements IRoleDao {
 
     @Override
     public RoleInfo queryObjectById(int id) {
-        return null;
+        return this.getSqlSession().selectOne("RoleInfo.queryObjectById",id);
     }
 
     @Override
@@ -75,11 +75,18 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements IRoleDao {
 
     @Override
     public void deleteRoleVsResourceByRoleId(int id) {
-
+            this.getSqlSession().delete("RoleInfo.deleteRoleVsResourceByRoleId",id);
     }
 
     @Override
     public List<RoleInfo> queryAllRole(){
         return this.getSqlSession().selectList("RoleInfo.queryAllRole");
+
+    }
+
+
+    @Override
+    public List<Integer> queryResourceIdsByRoleId(int roleId) {
+        return this.getSqlSession().selectList("RoleInfo.queryResourceIdsByRoleId",roleId);
     }
 }

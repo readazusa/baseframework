@@ -92,4 +92,8 @@ public class ResourceServiceImpl implements IResourceService {
     public List<ResourceInfo> queryAllRes() {
         return resourceDao.queryAllRes();
     }
+
+
+
+
 }

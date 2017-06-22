@@ -23,4 +23,8 @@ public interface IRoleDao extends IDao<RoleInfo> {
 
 
     public List<RoleInfo> queryAllRole();
+
+
+
+    public List<Integer> queryResourceIdsByRoleId(int roleId);
 }
