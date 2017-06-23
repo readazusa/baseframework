@@ -38,11 +38,17 @@
 
 
     <select id="getTotalCount" parameterType="RoleInfo" resultType="java.lang.Integer">
-        select count(1) from t_sys_role
+        select count(1) from t_sys_role where 1=1
+        <if test="search != null and search !=''">
+            and name like  '${search}%'
+        </if>
     </select>
 
     <select id="queryPage" parameterType="BasePageReqEntity" resultType="RoleInfo">
-        select * from t_sys_role
+        select * from t_sys_role where 1=1
+        <if test="obj.search != null and obj.search !=''">
+           and  name like '${obj.search}%'
+        </if>
         limit #{limit} offset #{offset}
     </select>
 

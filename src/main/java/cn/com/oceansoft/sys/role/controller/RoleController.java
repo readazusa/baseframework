@@ -94,6 +94,9 @@ public class RoleController {
 
     @RequestMapping("view")
     public String view(int id, ModelMap model) {
+        RoleInfo roleInfo = roleService.queryObjectById(id);
+        model.put("role", roleInfo);
+        model.put("resources", roleService.queryCheckAndAllResourceInfos(id));
         return "sys/role/view";
     }
 

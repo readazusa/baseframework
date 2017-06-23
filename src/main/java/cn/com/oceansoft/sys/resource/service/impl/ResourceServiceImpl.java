@@ -76,6 +76,7 @@ public class ResourceServiceImpl implements IResourceService {
     @Override
     public BasePageResultEntity queryPage(BaseReqEntity baseReqEntity) {
         ResourceInfo resourceInfo = new ResourceInfo();
+        resourceInfo.setSearch(baseReqEntity.getSearch());
         BasePageReqEntity basePageReqEntity = new BasePageReqEntity();
         basePageReqEntity.setObj(resourceInfo);
         basePageReqEntity.setOffset(baseReqEntity.getOffset());

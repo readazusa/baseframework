@@ -112,7 +112,7 @@
                     field: 'id',
                     title: '操作',
                     formatter: function (value, row, index) {
-                        return '<a class="btn btn-primary btn-info" href="javascript:edit(' + value + ');" >编辑</a>&nbsp;<button class="btn btn-primary btn-warning" href="javascript:view(' + value + ');"> 查看</button>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove(' + value + ');">删除</a>';
+                        return '<a class="btn btn-primary btn-info" href="javascript:edit(' + value + ');" >编辑</a>&nbsp;<a class="btn btn-primary btn-warning" href="javascript:view(' + value + ');"> 查看</a>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove(' + value + ');">删除</a>';
                     }
                 }
             ],
@@ -127,7 +127,7 @@
 //            },
             queryParams: function (param) {
                 console.info("请求的数据: " + JSON.stringify(param));
-                return {"deptCode": $("#deptCode").val(), "offset": param.offset, "limit": param.limit};
+                return {"deptCode": $("#deptCode").val(), "offset": param.offset, "limit": param.limit,"search":param.search};
             }
         });
 

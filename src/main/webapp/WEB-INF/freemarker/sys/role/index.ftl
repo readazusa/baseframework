@@ -94,14 +94,6 @@
             onLoadSuccess: function (data) {
                 console.log("data: " + JSON.stringify(data));
             }
-//            detailFormatter: function () {
-//                return "123123123";
-//            }
-//            queryParams: function (param) {
-//                console.info("请求的数据: " + JSON.stringify(param));
-//                return {"deptCode": $("#deptCode").val(), "offset": param.offset, "limit": param.limit};
-//            }
-
         });
     });
     function refresh(){
@@ -115,5 +107,5 @@
 <@baseExec.addJS url="${base}/sys/role/newpage.htm" title="新增角色"></@baseExec.addJS>
 <@baseExec.editJS url="${base}/sys/role/edit.htm" title="编辑角色"></@baseExec.editJS>
 <@baseExec.deleteJS url="${base}/sys/role/delete.json"></@baseExec.deleteJS>
-
+<@baseExec.viewJS url="${base}/sys/role/view.htm"></@baseExec.viewJS>
 </body>

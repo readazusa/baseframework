@@ -109,6 +109,7 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public BasePageResultEntity queryPage(BaseReqEntity baseReqEntity) {
         RoleInfo roleInfo = new RoleInfo();
+        roleInfo.setSearch(baseReqEntity.getSearch());
         BasePageReqEntity basePageReqEntity = new BasePageReqEntity();
         basePageReqEntity.setObj(roleInfo);
         basePageReqEntity.setLimit(baseReqEntity.getLimit());

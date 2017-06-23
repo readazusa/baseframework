@@ -1,4 +1,5 @@
 <#macro addJS url title=" " width="50%" height="70%">
+
 <script type="application/javascript">
     function add() {
         index = layer.open({
@@ -13,6 +14,7 @@
         });
     }
 </script>
+
 </#macro>
 
 <#macro addDeptJS url title=" " width="50%" height="70%">
@@ -31,11 +33,6 @@
     }
 </script>
 </#macro>
-
-
-
-
-
 
 <#macro deleteJS url title="">
 <script type="application/javascript">

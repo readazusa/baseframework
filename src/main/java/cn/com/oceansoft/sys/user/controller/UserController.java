@@ -118,8 +118,13 @@ public class UserController {
 
 
     @RequestMapping("view")
-    public String view(){
-        return null;
+    public String view(int id,ModelMap model){
+        UserInfo userInfo = userService.queryObjectById(id);
+        Map<String,Object> qfMap = userService.loadRoleAndHasRoleInfos(id);
+        model.put("user",userInfo);
+        model.put("syRoleInfo",qfMap.get("syRoleInfo"));
+        model.put("hasRoleInfo",qfMap.get("hasRoleInfo"));
+        return "sys/user/view";
     }
 
 

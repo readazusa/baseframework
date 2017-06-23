@@ -9,6 +9,7 @@ import java.util.List;
  * Created by ty on 2017/6/11.
  */
 public interface IDeptDao extends IDao<DeptInfo> {
+
     public List<DeptInfo> queryDeptInfosByParentCode(String parentCode);
 
 
@@ -21,4 +22,8 @@ public interface IDeptDao extends IDao<DeptInfo> {
      * @return
      */
     public String getCodeByParentCode(String parentCode);
+
+
+
+    public List<DeptInfo> queryAllDeptInfos(DeptInfo deptInfo);
 }

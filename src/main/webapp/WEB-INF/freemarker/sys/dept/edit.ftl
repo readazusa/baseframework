@@ -22,24 +22,24 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">部门名称</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门名称" name="name">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门名称" name="name" value="${deptInfo.name}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">部门电话</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门电话" name="phone">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门电话" name="phone" value="${deptInfo.phone}">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">部门领导</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门领导" name="leader">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门领导" name="leader" value="${deptInfo.leader}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">领导电话</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入领导电话" name="leaderMobile">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入领导电话" name="leaderMobile" value="${deptInfo.leaderMobile}">
             </div>
         </div>
 
@@ -47,24 +47,25 @@
 
             <label for="inputEmail3" class="col-sm-2 control-label">领导职位</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入领导职位" name="leaderPosition">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入领导职位" name="leaderPosition" value="${deptInfo.leaderPosition}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">部门编号</label>
             <div class="col-sm-4">
 
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门编号" value="${code!''}"
-                       readonly="readonly" name="code">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门编号" value="${deptInfo.code!''}"
+                       readonly="readonly" name="code" >
             </div>
         </div>
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">部门地址</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门地址" name="address">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入部门地址" name="address" value="${deptInfo.address}">
             </div>
         </div>
 
-        <input type="hidden" name="parentCode" value="${parentCode!''}">
+        <input type="hidden" name="id" value="${deptInfo.id}">
+
     </form>
 
     <div class="submit">
@@ -136,11 +137,11 @@
         bootstrapValidator.validate();
         if(bootstrapValidator.isValid()){
             $("#deptForm").ajaxSubmit({
-                url:"${base}/sys/dept/add.json",
+                url:"${base}/sys/dept/update.json",
                 type: 'post',
                 success:function(resp){
                     if(resp.code="0000"){
-                        layer.msg("新增部门成功",function(){
+                        layer.msg("修改部门成功",function(){
                            parent.refresh();
                         });
                     }else{

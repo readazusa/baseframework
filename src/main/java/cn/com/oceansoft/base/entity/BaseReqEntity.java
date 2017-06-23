@@ -14,6 +14,8 @@ public class BaseReqEntity {
 
     private int offset;
 
+    private String search;
+
     public String getOrder() {
         return order;
     }
@@ -38,6 +40,13 @@ public class BaseReqEntity {
         this.offset = offset;
     }
 
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
 
     @Override
     public String toString() {

@@ -29,7 +29,7 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
 
     @Override
     public DeptInfo queryObjectById(int id) {
-        return null;
+        return this.getSqlSession().selectOne("DeptInfo.queryObjectById",id);
     }
 
     @Override
@@ -54,7 +54,7 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
 
     @Override
     public void update(DeptInfo deptInfo) {
-
+        this.getSqlSession().update("DeptInfo.update",deptInfo);
     }
 
     @Override
@@ -82,5 +82,10 @@ public class DeptDaoImpl extends SqlSessionDaoSupport  implements IDeptDao {
     @Override
     public String getCodeByParentCode(String parentCode) {
         return this.getSqlSession().selectOne("DeptInfo.getCodeByParentCode",parentCode);
+    }
+
+    @Override
+    public List<DeptInfo> queryAllDeptInfos(DeptInfo deptInfo) {
+        return this.getSqlSession().selectList("DeptInfo.queryAllDeptInfos",deptInfo);
     }
 }

@@ -99,7 +99,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public int getTotalCount(UserInfo userInfo) {
         return userDao.getTotalCount(userInfo);
-
     }
 
     @Override
@@ -112,6 +111,7 @@ public class UserServiceImpl implements IUserService {
     public BasePageResultEntity queryPage(ReqUserInfoEntity reqUserInfoEntity) {
         UserInfo userInfo = new UserInfo();
         userInfo.setDeptCode(reqUserInfoEntity.getDeptCode());
+        userInfo.setSearch(reqUserInfoEntity.getSearch());
         BasePageReqEntity<UserInfo> basePageReqEntity = new BasePageReqEntity<>();
         basePageReqEntity.setObj(userInfo);
         basePageReqEntity.setLimit(reqUserInfoEntity.getLimit());

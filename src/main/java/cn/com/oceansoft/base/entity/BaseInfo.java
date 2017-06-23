@@ -27,6 +27,8 @@ public class BaseInfo {
     private Date sysUpdateTime;
 
 
+    private String search;
+
     private String updateTimeStr;
 
     public int getId() {
@@ -85,6 +87,14 @@ public class BaseInfo {
         this.sysUpdateTime = sysUpdateTime;
     }
 
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
 
     public String getUpdateTimeStr() {
         return DateFormatUtils.getFormatDate(this.getUpdateTime(),"yyyy-MM-dd HH:mm:ss");

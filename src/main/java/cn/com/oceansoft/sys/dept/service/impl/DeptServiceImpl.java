@@ -4,6 +4,7 @@ import cn.com.oceansoft.base.entity.BasePageReqEntity;
 import cn.com.oceansoft.base.util.IdWorkerUtils;
 import cn.com.oceansoft.sys.dept.dao.IDeptDao;
 import cn.com.oceansoft.sys.dept.model.DeptInfo;
+import cn.com.oceansoft.sys.dept.model.ReqDeptInfoEntity;
 import cn.com.oceansoft.sys.dept.service.IDeptService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class DeptServiceImpl implements IDeptService {
 
     @Override
     public DeptInfo queryObjectById(int id) {
-        return null;
+        return deptDao.queryObjectById(id);
     }
 
     @Override
@@ -60,7 +61,8 @@ public class DeptServiceImpl implements IDeptService {
 
     @Override
     public void update(DeptInfo deptInfo) {
-
+        deptInfo.setUpdateTime(new Date());
+        deptDao.update(deptInfo);
     }
 
     @Override
@@ -73,9 +75,17 @@ public class DeptServiceImpl implements IDeptService {
         return null;
     }
 
+//    @Override
+//    public List<DeptInfo> queryDeptInfosByParentCode(String parentCode) {
+//        return deptDao.queryDeptInfosByParentCode(parentCode);
+//    }
+
     @Override
-    public List<DeptInfo> queryDeptInfosByParentCode(String parentCode) {
-        return deptDao.queryDeptInfosByParentCode(parentCode);
+    public List<DeptInfo> queryDeptInfosByParentCode(ReqDeptInfoEntity reqDeptInfoEntity) {
+        DeptInfo deptInfo = new DeptInfo();
+        deptInfo.setParentCode(reqDeptInfoEntity.getParentCode());
+        deptInfo.setSearch(reqDeptInfoEntity.getSearch());
+        return deptDao.queryAllDeptInfos(deptInfo);
     }
 
     @Override
@@ -120,6 +130,7 @@ public class DeptServiceImpl implements IDeptService {
     @Override
     public String createCodeByParentCode(String parentCode) {
         String maxCode = deptDao.getCodeByParentCode(parentCode);
+
         String targetCode=null;
         if(StringUtils.isBlank(maxCode)){
             targetCode=parentCode+"0001";

@@ -117,5 +117,5 @@
 <@baseExec.addJS url="${base}/sys/resource/newpage.htm" title="新增权限" height="50%"></@baseExec.addJS>
 <@baseExec.editJS url="${base}/sys/resource/edit.htm" title="编辑权限" height="50%"></@baseExec.editJS>
 <@baseExec.deleteJS url="${base}/sys/resource/delete.json"></@baseExec.deleteJS>
-
+<@baseExec.viewJS url="${base}/sys/resource/view.htm" title="查看权限" height="50%"></@baseExec.viewJS>
 </body>

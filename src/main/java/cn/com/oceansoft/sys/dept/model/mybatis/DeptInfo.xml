@@ -28,6 +28,12 @@
         select * from t_sys_dept where parentcode = #{parentCode}
     </select>
 
+
+    <select id="queryAllDeptInfos" parameterType="DeptInfo" resultType="DeptInfo">
+        select * from t_sys_dept where parentcode = #{parentCode} and name like '${search}%'
+    </select>
+
+
     <select id="queryDeptCountByParentCode" parameterType="java.lang.String" resultType="java.lang.Integer">
         select count(1) from t_sys_dept where parentcode = #{parentCode}
     </select>

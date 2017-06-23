@@ -85,7 +85,9 @@ public class ResourceController {
     }
 
     @RequestMapping("view")
-    public String view(int id){
+    public String view(int id,ModelMap model){
+        ResourceInfo resourceInfo = resourceService.queryObjectById(id);
+        model.put("resource",resourceInfo);
         return "sys/resource/view";
     }
 

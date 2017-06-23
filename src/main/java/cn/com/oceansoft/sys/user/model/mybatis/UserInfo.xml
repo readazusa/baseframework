@@ -51,6 +51,10 @@
         <if test="obj.deptCode != null and obj.deptCode !=''">
             and deptcode like '${obj.deptCode}%'
         </if>
+
+        <if test="obj.search !=null and obj.search !=''">
+            and (name like '${obj.search}%' or username like '${obj.search}%')
+        </if>
         limit #{limit} offset #{offset}
     </select>
 
@@ -60,6 +64,10 @@
          <if test="deptCode != '' and deptCode !=null">
              and deptcode like '${deptCode}%'
          </if>
+
+        <if test="search !=null and search !=''">
+            and (name like '${search}%' or username like '${search}%')
+        </if>
     </select>
 
 

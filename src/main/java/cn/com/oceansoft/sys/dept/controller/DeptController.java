@@ -3,6 +3,7 @@ package cn.com.oceansoft.sys.dept.controller;
 import cn.com.oceansoft.base.common.Result;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
 import cn.com.oceansoft.sys.dept.model.DeptInfo;
+import cn.com.oceansoft.sys.dept.model.ReqDeptInfoEntity;
 import cn.com.oceansoft.sys.dept.service.IDeptService;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.logging.log4j.LogManager;
@@ -49,8 +50,8 @@ public class DeptController {
 
     @RequestMapping("loaddeptbyparentcode")
     @ResponseBody
-    public Object loadDeptByParentCode(@RequestBody JSONObject jsonObject) {
-        List<DeptInfo> deptInfos = deptService.queryDeptInfosByParentCode(jsonObject.get("parentcode").toString());
+    public Object loadDeptByParentCode(@RequestBody ReqDeptInfoEntity reqDeptInfoEntity) {
+        List<DeptInfo> deptInfos = deptService.queryDeptInfosByParentCode(reqDeptInfoEntity);
         BasePageResultEntity basePageResultEntity = new BasePageResultEntity<DeptInfo>();
         basePageResultEntity.setRows(deptInfos);
         basePageResultEntity.setTotal(deptInfos.size());
@@ -90,7 +91,7 @@ public class DeptController {
     public String editPage(int id, ModelMap model) {
         DeptInfo deptInfo= deptService.queryObjectById(id);
         model.put("deptInfo",deptInfo);
-        return null;
+        return "sys/dept/edit";
     }
 
     @RequestMapping("update")
@@ -100,14 +101,18 @@ public class DeptController {
         try{
             deptService.update(deptInfo);
         }catch (Exception ex){
-
+            log.error("更新部门信息失败,失败信息: ",ex);
+            result.setCode("0001");
+            result.setMsg(ex.getMessage());
         }
         return result;
     }
 
     @RequestMapping("viewpage")
-    public String viewPage(int id) {
-        return null;
+    public String viewPage(int id,ModelMap model) {
+        DeptInfo deptInfo= deptService.queryObjectById(id);
+        model.put("deptInfo",deptInfo);
+        return "sys/dept/view";
     }
 
     @RequestMapping("remove")

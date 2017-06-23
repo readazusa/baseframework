@@ -22,14 +22,14 @@
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-4 control-label">权限名称</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入权限名称" name="name">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入权限名称" name="name" value="${role.name}" readonly="readonly">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-4 control-label">权限编码</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入权限编码" name="code">
+                <input type="text" class="form-control" id="inputEmail3" placeholder="请输入权限编码" name="code" value="${role.code}" readonly="readonly">
             </div>
         </div>
 
@@ -38,19 +38,15 @@
             <div class="col-sm-8 roleclass">
                 <#list resources as resource>
                     <div class="resdiv"> <label for="s_${resource.id}">${resource.name}</label>
-                        <input type="checkbox" name="res" id="s_${resource.id}" value="${resource.id}">
+                        <input type="checkbox" name="res" id="s_${resource.id}" value="${resource.id}"   <#if resource.checked> checked</#if> readonly="readonly">
                     </div>
                 </#list>
             </div>
         </div>
-
+        <input type="hidden" value="${role.id}" name="id">
     </form>
 
-    <div class="submit">
-        <button type="button" class="btn btn-success" onclick="doSubmit();">提交</button>
-        &nbsp; &nbsp; &nbsp; &nbsp;
-        <button type="button" class="btn btn-success" onclick="doReset()">重置</button>
-    </div>
+
 </div>
 
 
@@ -115,11 +111,11 @@
         bootstrapValidator.validate();
         if (bootstrapValidator.isValid()) {
             $("#resourceForm").ajaxSubmit({
-                url: "${base}/sys/role/add.json",
+                url: "${base}/sys/role/update.json",
                 type: 'post',
                 success: function (resp) {
                     if (resp.code = "0000") {
-                        layer.msg("新增角色成功", function () {
+                        layer.msg("修改角色成功", function () {
                             parent.refresh();
                         });
                     } else {

@@ -102,13 +102,13 @@
                     title: '操作',
                     formatter: function (value, row, index) {
                         console.info("value: "+ value);
-                        return '<button class="btn btn-primary btn-info" >编辑</button>&nbsp;<button class="btn btn-primary btn-warning">查看</button>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove('+value+');">删除</a>';
+                        return '<a class="btn btn-primary btn-info" href="javascript:edit('+value+');">编辑</a>&nbsp;<a class="btn btn-primary btn-warning"  href="javascript:view('+value+');">查看</a>&nbsp;<a class="btn btn-primary btn-danger" href="javascript:remove('+value+');">删除</a>';
                     }
                 }
             ],
             queryParams: function (param) {
                 console.info("请求的数据: " + JSON.stringify(param));
-                return {"parentcode": $("#parentCode").val()};
+                return {"parentCode": $("#parentCode").val(),"search":param.search};
             }
         });
 
@@ -164,17 +164,6 @@
         $table.bootstrapTable("refresh");
     }
 
-
-
-    function onChoiceAll() {
-        var sel = $table.bootstrapTable("refresh", {
-            query: {
-                name: "一二三"
-            }
-        });
-        console.info(JSON.stringify(sel));
-    }
-
     function addDept() {
         add($("#parentCode").val());
     }
@@ -183,6 +172,7 @@
 
 
 <@baseExecJS.addDeptJS url="${base}/sys/dept/newpage.htm" title="新增部门" ></@baseExecJS.addDeptJS>
-<@baseExecJS.editJS url="${base}/sys/dept/editpage.htm"></@baseExecJS.editJS>
+<@baseExecJS.editJS url="${base}/sys/dept/editpage.htm" title="编辑部门"></@baseExecJS.editJS>
 <@baseExecJS.deleteJS  url="${base}/sys/dept/remove.json"></@baseExecJS.deleteJS>
+<@baseExecJS.viewJS url="${base}/sys/dept/viewpage.htm"></@baseExecJS.viewJS>
 </body>
