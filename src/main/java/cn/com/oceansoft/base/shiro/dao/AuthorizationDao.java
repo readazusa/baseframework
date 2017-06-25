@@ -7,6 +7,8 @@ import cn.com.oceansoft.sys.role.model.RoleInfo;
 import cn.com.oceansoft.sys.user.model.UserInfo;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -18,10 +20,10 @@ import java.util.Map;
  * Email:sunmch@163.com
  * 用户认证与授权dao
  */
-//@Repository
+@Repository
 public class AuthorizationDao extends SqlSessionDaoSupport {
 
-//    @Autowired
+    @Autowired
     @Override
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         super.setSqlSessionFactory(sqlSessionFactory);
@@ -31,11 +33,11 @@ public class AuthorizationDao extends SqlSessionDaoSupport {
         return this.getSqlSession().selectOne("ShiroAuth.validateUser",map);
     }
 
-    public List<RoleInfo> queryAuthRolesByUserId(String userId){
+    public List<RoleInfo> queryAuthRolesByUserId(int userId){
         return this.getSqlSession().selectList("ShiroAuth.queryAuthRolesByUserId",userId);
     }
 
-    public List<ResourceInfo> queryAuthResourcesByUserId(String userId){
+    public List<ResourceInfo> queryAuthResourcesByUserId(int userId){
         return  this.getSqlSession().selectList("ShiroAuth.queryAuthResourcesByUserId",userId);
     }
 

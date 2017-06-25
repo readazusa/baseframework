@@ -2,6 +2,7 @@ package cn.com.oceansoft.sys.user.service.impl;
 
 import cn.com.oceansoft.base.entity.BasePageReqEntity;
 import cn.com.oceansoft.base.entity.BasePageResultEntity;
+import cn.com.oceansoft.base.util.DESUtils;
 import cn.com.oceansoft.base.util.IdWorkerUtils;
 import cn.com.oceansoft.sys.role.dao.IRoleDao;
 import cn.com.oceansoft.sys.role.model.RoleInfo;
@@ -48,6 +49,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void save(UserInfo obj) {
         obj.setUid(IdWorkerUtils.instance.getId());
+        obj.setPassword(DESUtils.encrypt(obj.getPassword()));
         obj.setCreateTime(new Date());
         obj.setUpdateTime(new Date());
         userDao.save(obj);
@@ -89,6 +91,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void update(UserInfo userInfo) {
         userInfo.setUpdateTime(new Date());
+        userInfo.setPassword(DESUtils.encrypt(userInfo.getPassword()));
         userDao.update(userInfo);
         String[] roleIds = userInfo.getRoleIds().split(",");
         List<Map<String, Object>> mapList = loadUserRoleInfos(userInfo.getId(), roleIds);

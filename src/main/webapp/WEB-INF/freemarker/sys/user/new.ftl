@@ -59,7 +59,7 @@
             <div class="col-sm-4">
                 <input type="text" class="form-control" value="${deptname}"
                        readonly="readonly" name="deptName" id="deptName" onclick="doChoiceDept();">
-                <input type="hidden" id="deptCode" name="deptCode">
+                <input type="hidden" id="deptCode" name="deptCode"  value="${deptcode}">
             </div>
 
             <label for="inputEmail3" class="col-sm-2 control-label">职位</label>

@@ -1,12 +1,20 @@
 package cn.com.oceansoft.base.shiro.realm;
 
 
-
+import cn.com.oceansoft.base.service.cache.BaseCacheService;
+import cn.com.oceansoft.sys.resource.model.ResourceInfo;
+import cn.com.oceansoft.sys.role.model.RoleInfo;
 import cn.com.oceansoft.sys.user.model.UserInfo;
 import cn.com.oceansoft.base.shiro.dao.AuthorizationDao;
 import cn.com.oceansoft.base.shiro.token.MyUsernamePasswordToken;
 import cn.com.oceansoft.base.util.CodeConstantUtils;
 import cn.com.oceansoft.base.util.DESUtils;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -16,6 +24,7 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 
+import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -26,12 +35,17 @@ import java.util.*;
  */
 public class MyAuthorizationRealm extends AuthorizingRealm {
 
+    private static final Logger log = LogManager.getLogger(MyAuthorizationRealm.class);
+
     private static final String ROLE_KEY = "role_";
 
     private static final String RES_KEY = "res_";
 
-//    @Resource
+    @Resource
     private AuthorizationDao authorizationDao;
+
+    @Resource
+    private BaseCacheService baseCacheService;
 
 
     private Map<String, Collection<String>> userRolesMap = new HashMap<>();  //key表示方式:role_userid
@@ -39,84 +53,87 @@ public class MyAuthorizationRealm extends AuthorizingRealm {
     private Map<String, Collection<String>> userResMap = new HashMap<>();  //key表示: res_userid
 
     /**
-     * 给用户授权
-     * 这个方法只要页面上使用标签就会被调用一次
-     * 好处：当某个用户权限或者角色发生变化的时候
-     * 系统可以在不做任何改变的情况下，改变该用户的角色权限
-     * 确定：每次都会调用数据库这样牵涉到的数据库交互比较多
-     * 后期看情况修改，可以放在缓冲中,在每次登陆的时候修改权限
+     * 全部的授权走这个方法判断数据
      * @param principals
      * @return
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        log.debug("开始获取权限认证");
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-
-//        UserPO userPO = (UserPO) principals.getPrimaryPrincipal();
-//        if (userRolesMap.get(ROLE_KEY + userPO.getId()) == null) {
-//            insertRoleMap(userPO);
-//        }
-//        if (userResMap.get(RES_KEY + userPO.getId()) == null) {
-//            insertResMap(userPO);
-//        }
-//        if (null != userRolesMap.get(ROLE_KEY + userPO.getId())) {
-//            simpleAuthorizationInfo.addRoles(userRolesMap.get(ROLE_KEY + userPO.getId()));
-//        }
-//        if (null != userResMap.get(RES_KEY + userPO.getId())) {
-//            simpleAuthorizationInfo.addStringPermissions(userResMap.get(RES_KEY + userPO.getId()));
-//        }
+        UserInfo userInfo = (UserInfo) principals.getPrimaryPrincipal();
+        String ress = baseCacheService.get(RES_KEY + userInfo.getId());
+        String roles = baseCacheService.get(ROLE_KEY + userInfo.getId());
+        if (StringUtils.isBlank(ress)) {
+            insertResMap(userInfo);
+            baseCacheService.set(RES_KEY + userInfo.getId(), JSON.toJSONString(userResMap.get(RES_KEY + userInfo.getId())));
+        } else {
+            if(userResMap.get(RES_KEY + userInfo.getId())== null || userResMap.get(RES_KEY + userInfo.getId()).size()<=0){
+                userResMap.put(RES_KEY + userInfo.getId(), JSON.parseArray(ress,String.class));
+            }
+        }
+        if (StringUtils.isBlank(roles)) {
+            insertRoleMap(userInfo);
+            baseCacheService.set(ROLE_KEY + userInfo.getId(), JSON.toJSONString(userRolesMap.get(ROLE_KEY + userInfo.getId())));
+        } else {
+            if(userRolesMap.get(userInfo.getId()) == null || userRolesMap.get(userInfo.getId()).size()<=0){
+                userRolesMap.put(ROLE_KEY + userInfo.getId(), JSON.parseArray(roles,String.class));
+            }
+        }
+        simpleAuthorizationInfo.addRoles(userRolesMap.get(ROLE_KEY + userInfo.getId()));
+        simpleAuthorizationInfo.addStringPermissions(userResMap.get(RES_KEY + userInfo.getId()));
         return simpleAuthorizationInfo;
     }
 
     private void insertRoleMap(UserInfo userInfo) {
-        synchronized (userInfo) {
-//            Map<String, Collection<String>> roleMap = getCollectionRoles(userPO.getId());
-//            Collection<String> collection = new ArrayList<>();
-//            collection.addAll(roleMap.get("roleNames"));
-//            collection.addAll(roleMap.get("roleCodes"));
-//            userRolesMap.put(ROLE_KEY + userPO.getId(), collection);
+        if(userRolesMap.get(userInfo.getId()) == null || userRolesMap.get(userInfo.getId()).size()<=0){
+            Map<String, Collection<String>> roleMap = getCollectionRoles(userInfo.getId());
+            Collection<String> collection = new ArrayList<>();
+            collection.addAll(roleMap.get("roleNames"));
+            collection.addAll(roleMap.get("roleCodes"));
+            userRolesMap.put(ROLE_KEY + userInfo.getId(), collection);
         }
     }
 
     private void insertResMap(UserInfo userInfo) {
-//        synchronized (userInfo) {
-//            Map<String, Collection<String>> resMap = getCollectionRes(userPO.getId());
-//            Collection<String> collection = new ArrayList<>();
-//            collection.addAll(resMap.get("resNames"));
-//            collection.addAll(resMap.get("resCodes"));
-//            userResMap.put(RES_KEY + userPO.getId(), collection);
-//        }
+        if(userResMap.get(RES_KEY + userInfo.getId())== null || userResMap.get(RES_KEY + userInfo.getId()).size()<=0){
+            Map<String, Collection<String>> resMap = getCollectionRes(userInfo.getId());
+            Collection<String> collection = new ArrayList<>();
+            collection.addAll(resMap.get("resNames"));
+            collection.addAll(resMap.get("resCodes"));
+            userResMap.put(RES_KEY + userInfo.getId(), collection);
+        }
     }
 
-    private Map<String, Collection<String>> getCollectionRoles(String userId) {
+    private Map<String, Collection<String>> getCollectionRoles(int userId) {
         Map<String, Collection<String>> targetRoleMap = new HashMap<>();
-//        List<RolePO> rolePOList = authorizationDao.queryAuthRolesByUserId(userId);
-//        List<String> roleCodes = new ArrayList<>(10);
-//        List<String> roleNames = new ArrayList<>(10);
-//        if (rolePOList != null && rolePOList.size() > 0) {
-//            for (RolePO rolePO : rolePOList) {
-//                roleCodes.add(rolePO.getCode());
-//                roleNames.add(rolePO.getName());
-//            }
-//        }
-//        targetRoleMap.put("roleNames", roleNames);
-//        targetRoleMap.put("roleCodes", roleCodes);
+        List<RoleInfo> rolePOList = authorizationDao.queryAuthRolesByUserId(userId);
+        List<String> roleCodes = new ArrayList<>(10);
+        List<String> roleNames = new ArrayList<>(10);
+        if (rolePOList != null && rolePOList.size() > 0) {
+            for (RoleInfo roleInfo : rolePOList) {
+                roleCodes.add(roleInfo.getCode());
+                roleNames.add(roleInfo.getName());
+            }
+        }
+        targetRoleMap.put("roleNames", roleNames);
+        targetRoleMap.put("roleCodes", roleCodes);
         return targetRoleMap;
     }
 
-    private Map<String, Collection<String>> getCollectionRes(String userId) {
-//        List<ResourcePO> resourcePOList = authorizationDao.queryAuthResourcesByUserId(userId);
+    private Map<String, Collection<String>> getCollectionRes(int userId) {
+        List<ResourceInfo> resourcePOList = authorizationDao.queryAuthResourcesByUserId(userId);
         Map<String, Collection<String>> targetResMap = new HashMap<>();
-//        List<String> resCodeList = new ArrayList<>(50);
-//        List<String> resNameList = new ArrayList<>(50);
-//        if (null != resourcePOList && resourcePOList.size() > 0) {
-//            for (ResourcePO resourcePO : resourcePOList) {
-//                resCodeList.add(resourcePO.getCode());
-//                resNameList.add(resourcePO.getName());
-//            }
-//        }
-//        targetResMap.put("resNames", resNameList);
-//        targetResMap.put("resCodes", resCodeList);
+        List<String> resCodeList = new ArrayList<>(50);
+        List<String> resNameList = new ArrayList<>(50);
+        if (null != resourcePOList && resourcePOList.size() > 0) {
+            for (ResourceInfo resourceInfo : resourcePOList) {
+                resCodeList.add(resourceInfo.getCode());
+                resNameList.add(resourceInfo.getName());
+            }
+        }
+        targetResMap.put("resNames", resNameList);
+        targetResMap.put("resCodes", resCodeList);
         return targetResMap;
     }
 
@@ -153,8 +170,7 @@ public class MyAuthorizationRealm extends AuthorizingRealm {
             session.setAttribute("error", "用户名或密码不正确");
             throw new AuthenticationException("用户名或密码不正确");
         }
-//        userResMap.remove(RES_KEY + userPO.getId());
-//        userRolesMap.remove(ROLE_KEY + userPO.getId());
+        clearCache(userInfo);
         setUserSession(userInfo);
         SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(userInfo, password, username);
         return simpleAuthenticationInfo;
@@ -169,6 +185,14 @@ public class MyAuthorizationRealm extends AuthorizingRealm {
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         return session;
+    }
+
+
+    private void clearCache(UserInfo userInfo){
+        userResMap.remove(RES_KEY + userInfo.getId());
+        userRolesMap.remove(ROLE_KEY + userInfo.getId());
+        baseCacheService.clear(RES_KEY + userInfo.getId());
+        baseCacheService.clear(ROLE_KEY + userInfo.getId());
     }
 }
 

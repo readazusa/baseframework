@@ -23,7 +23,13 @@
     <@template.mainleft></@template.mainleft>
     <@template.mainTop></@template.mainTop>
         <div class="right_col base-main-content" role="main" style="overflow-y: auto">
+                <@shiro.hasRole name="asd">
+                    角色
+                </@shiro.hasRole>
 
+                <@shiro.hasRole name="AAA">
+                    角色AAA
+                </@shiro.hasRole>
         </div>
     <@template.mainFooter></@template.mainFooter>
     </div>

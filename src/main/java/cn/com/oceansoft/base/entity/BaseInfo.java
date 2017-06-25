@@ -2,6 +2,7 @@ package cn.com.oceansoft.base.entity;
 
 import cn.com.oceansoft.base.util.DateFormatUtils;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * 基础实体类信息
  *
  */
-public class BaseInfo {
+public class BaseInfo implements Serializable{
 
 
     private int id;  //数据库自增的id

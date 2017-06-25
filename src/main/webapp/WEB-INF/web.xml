@@ -10,7 +10,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:spring/mysql/applicationContext_database.xml,
-            <!--classpath:spring/shiro/applicationContext_shiro.xml,-->
+            classpath:spring/shiro/applicationContext_shiro.xml,
             classpath:spring/applicationContext_mvc.xml,
             classpath:spring/applicationContext_base.xml,
             classpath:spring/redis/applicationContext_redis.xml
@@ -38,18 +38,18 @@
     </filter-mapping>
 
     <!--shiro spring的认证 -->
-    <!--<filter>-->
-        <!--<filter-name>shiroFilter</filter-name>-->
-        <!--<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
-        <!--<init-param>-->
-            <!--<param-name>targetFilterLifecycle</param-name>-->
-            <!--<param-value>true</param-value>-->
-        <!--</init-param>-->
-    <!--</filter>-->
-    <!--<filter-mapping>-->
-        <!--<filter-name>shiroFilter</filter-name>-->
-        <!--<url-pattern>*.htm</url-pattern>-->
-    <!--</filter-mapping>-->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>*.htm</url-pattern>
+    </filter-mapping>
 
     <!-- 处理一些put，delete等http请求 -->
     <filter>

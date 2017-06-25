@@ -41,4 +41,7 @@
     </bean>
     <bean id="myRealm" class="cn.com.oceansoft.base.shiro.realm.MyAuthorizationRealm"></bean>
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+
+
 </beans>

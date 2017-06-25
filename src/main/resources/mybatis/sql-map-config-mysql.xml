@@ -17,7 +17,6 @@
         <typeAlias type="cn.com.oceansoft.sys.role.model.RoleInfo" alias="RoleInfo"></typeAlias>
         <typeAlias type="cn.com.oceansoft.sys.user.model.UserInfo" alias="UserInfo"></typeAlias>
         <typeAlias type="cn.com.oceansoft.base.entity.BasePageReqEntity" alias="BasePageReqEntity"></typeAlias>
-
     </typeAliases>
 
     <mappers>
@@ -25,6 +24,8 @@
         <mapper resource="cn/com/oceansoft/sys/resource/model/mybatis/ResourceInfo.xml"></mapper>
         <mapper resource="cn/com/oceansoft/sys/role/model/mybatis/RoleInfo.xml"></mapper>
         <mapper resource="cn/com/oceansoft/sys/user/model/mybatis/UserInfo.xml"></mapper>
+        <mapper resource="cn/com/oceansoft/base/shiro/dao/mybatis/ShiroAuth.xml"></mapper>
+
     </mappers>
 
 </configuration>

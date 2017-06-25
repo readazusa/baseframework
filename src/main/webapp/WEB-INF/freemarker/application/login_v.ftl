@@ -1,4 +1,3 @@
-<#import "../template/template.ftl" as template>
 <#import "../config/config.ftl" as config>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,9 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>主页</title>
 <@config.bootCSS></@config.bootCSS>
-<#--<@config.themeCSS></@config.themeCSS>-->
 <@config.fontCSS></@config.fontCSS>
-<#--<@config.baseCSS></@config.baseCSS>-->
 <@config.loginCSS></@config.loginCSS>
 
 </head>

@@ -4,18 +4,18 @@
 
 <mapper namespace="ShiroAuth">
 
-    <select id="validateUser" parameterType="java.util.Map" resultType="UserPO">
+    <select id="validateUser" parameterType="java.util.Map" resultType="UserInfo">
           select * from t_sys_user where  password = #{password} and  ( email = #{condition} or username = #{condition} )
     </select>
 
-    <!--<select id="queryAuthRolesByUserId" parameterType="java.lang.String" resultType="RolePO">-->
-        <!--select role.* from t_sys_role role ,t_sys_user_vs_role ur where role.id = ur.roleid and ur.userid =#{userid}-->
-    <!--</select>-->
+    <select id="queryAuthRolesByUserId" parameterType="java.lang.Integer" resultType="RoleInfo">
+        select role.* from t_sys_role role ,t_sys_user_role ur where role.id = ur.roleid and ur.userid =#{userid}
+    </select>
 
-    <!--<select id="queryAuthResourcesByUserId" parameterType="java.lang.String" resultType="ResourcePO">-->
-        <!--select res.* from t_sys_resource res ,t_sys_role_vs_resource rr ,t_sys_user_vs_role ur where-->
-         <!--ur.roleid = rr.roleid and res.id = rr.resid and ur.userid = #{userid}-->
-    <!--</select>-->
+    <select id="queryAuthResourcesByUserId" parameterType="java.lang.Integer" resultType="ResourceInfo">
+        select res.* from t_sys_resource res ,t_sys_role_resource rr ,t_sys_user_role ur where
+         ur.roleid = rr.roleid and res.id = rr.resid and ur.userid = #{userid}
+    </select>
 
 
 </mapper>
