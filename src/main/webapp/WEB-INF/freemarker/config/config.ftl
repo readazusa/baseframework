@@ -5,6 +5,12 @@
 <#macro baseCSS>
     <link rel="stylesheet" href="${base}/resources/ocean/css/base.css" type="text/css">
 </#macro>
+
+
+<#macro loginCSS>
+    <link rel="stylesheet" href="${base}/resources/ocean/css/login.css" type="text/css">
+</#macro>
+
 <#macro themeJS>
     <script src="${base}/resources/base/js/custom.js" type="application/javascript"></script>
 </#macro>

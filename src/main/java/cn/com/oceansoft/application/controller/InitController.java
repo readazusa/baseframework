@@ -14,7 +14,7 @@ public class InitController {
 
     @RequestMapping("login")
     public String login(){
-        return "application/login";
+        return "application/login_v";
     }
 
     @RequestMapping("index")
